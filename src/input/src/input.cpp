@@ -9,8 +9,4 @@ namespace laf {
     input::~input() {
 
     }
-
-    void input::poll(window* const window) {
-        std::cout << "[" << __func__ << "] called" << std::endl;
-    }
 }

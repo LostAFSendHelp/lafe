@@ -3,6 +3,8 @@ add_library(
     
     src/input.hpp
     src/input.cpp
+    src/input_impl.hpp
+    src/input_impl.cpp
 
     src/input_item.hpp
     src/input_item.cpp
