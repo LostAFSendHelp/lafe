@@ -3,11 +3,15 @@ add_library(
     
     src/input.hpp
     src/input.cpp
-    src/input_impl.hpp
-    src/input_impl.cpp
+
+    src/gl_input.hpp
+    src/gl_input.cpp
 
     src/input_item.hpp
     src/input_item.cpp
+
+    src/input_manager.hpp
+    src/input_manager.cpp
 )
 
 target_link_libraries(laf-input PRIVATE glfw laf-window)

@@ -3,10 +3,10 @@
 #include "input.hpp"
 
 namespace laf {
-    class input_impl: public input {
+    class gl_input: public input {
     public:
-        input_impl();
-        ~input_impl();
+        gl_input();
+        ~gl_input();
 
         void poll(window* window) override;
         void reset() override;
