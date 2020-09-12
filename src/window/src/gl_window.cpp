@@ -27,6 +27,7 @@ namespace laf {
 
         glfwInit();
         glfwWindowHint(GLFW_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_VERSION_MINOR, 3);
         window_ = glfwCreateWindow(WIDTH, HEIGHT, TITLE, nullptr, nullptr);
         glfwMakeContextCurrent(window_);
         
@@ -39,8 +40,8 @@ namespace laf {
     void gl_window::update() {
         glfwSwapBuffers(window_);
         glfwPollEvents();
-        // glClearColor(0, 0, 0, 0);
-        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(0, 0, 0, 0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     bool gl_window::is_open() const {

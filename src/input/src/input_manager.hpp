@@ -6,7 +6,10 @@
 namespace laf {
     class input_manager final {
     public:
-        template<class T>
+        input_manager() = delete;
+        ~input_manager();
+        
+        template<typename T>
         static void init();
 
         static void poll_input(window* window);
@@ -14,10 +17,7 @@ namespace laf {
         static int get_input(const std::string& name);
 
     private:
-        static std::shared_ptr<input> shared_;
-        
-        input_manager();
-        ~input_manager();
+        static std::unique_ptr<input> shared_;
     };
 
     template<>

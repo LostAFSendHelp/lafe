@@ -1,11 +1,7 @@
 #include "input_manager.hpp"
 
 namespace laf {
-    std::shared_ptr<input> input_manager::shared_ { nullptr };
-
-    input_manager::input_manager() {
-
-    }
+    std::unique_ptr<input> input_manager::shared_ { nullptr };
 
     input_manager::~input_manager() {
 
