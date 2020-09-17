@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace laf {
     class camera {
@@ -53,6 +54,16 @@ namespace laf {
         glm::mat4 projection_;
         glm::mat4 view_;
         
-        void update_axes();
+        inline void update_up() {
+            up_ = glm::normalize(glm::cross(-front_, right_));
+        }
+
+        inline void update_right() {
+            right_ = glm::normalize(glm::cross(BASE_UP, -front_));
+        }
+
+        inline void update_view() {
+            view_ = glm::lookAt(position_, position_ + front_, up_);
+        }
     };
 };

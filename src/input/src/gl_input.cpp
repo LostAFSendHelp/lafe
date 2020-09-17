@@ -52,6 +52,12 @@ namespace laf {
     }
 
     std::pair<double, double> gl_input::cursor_axes(bool normalized) const {
+        static bool just_started = true;
+        if (just_started) {
+            just_started = false;
+            return { .0, .0 };
+        }
+
         auto offset_x = x_ - last_x_;
         auto offset_y = y_ - last_y_;
         offset_x = (normalized && offset_x != 0) ? abs(offset_x) / offset_x : offset_x;

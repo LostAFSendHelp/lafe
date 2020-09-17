@@ -1,3 +1,4 @@
+#include <glm/gtx/rotate_vector.hpp>
 #include <input_manager.hpp>
 #include <render_manager.hpp>
 #include <gl_window.hpp>
@@ -57,6 +58,37 @@ int main() {
         window->wait_for_exit();
 
         laf::input_manager::poll_input();
+
+        // TODO: this is for testing only, remove when done
+        {
+            // TODO: check rotation
+            static const float TURN_RATE = .0004f;
+            auto front = camera->front();
+            auto right = camera->right();
+            auto cursor_axes = laf::input_manager::cursor_axes(false);
+            auto rotation_x = (float)cursor_axes.second * TURN_RATE * -1;
+            auto rotation_y = (float)cursor_axes.first * TURN_RATE * -1;
+            front = glm::rotate(front, rotation_x, right);
+            front = glm::rotateY(front, rotation_y);
+            camera->set_front(front);
+
+            // translate
+            static const float SPEED = .01f;
+            float horizontal = laf::input_manager::get_input("horizontal");
+            float vertical = laf::input_manager::get_input("vertical");
+            auto position = camera->position();
+            auto transformation = vertical * camera->front() + horizontal * camera->right();
+            if (transformation != glm::vec3{ .0f, .0f, .0f }) {
+                position += SPEED * glm::normalize(transformation);
+                camera->set_position(position);
+            }
+
+            auto cursor = laf::input_manager::cursor_axes(true);
+            if (cursor.first != .0f || cursor.second != .0f) {
+                std::cout << cursor.first << " - " << cursor.second << std::endl;
+            }
+        }
+
         
         laf::render_manager::render();
     }
