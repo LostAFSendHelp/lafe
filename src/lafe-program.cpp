@@ -7,11 +7,11 @@
 int main() {
 
     // setup
-    std::unique_ptr<laf::window> window{ new laf::gl_window{ } };
+    std::shared_ptr<laf::window> window{ new laf::gl_window{ } };
     window->init();
     std::shared_ptr<laf::camera> camera{ new laf::camera{ } };
     
-    laf::input_manager::init<laf::gl_input>();
+    laf::input_manager::init<laf::gl_input>(window);
     laf::render_manager::init<laf::gl_renderer>();
     laf::render_manager::make_camera_current(camera);
 
@@ -49,17 +49,16 @@ int main() {
     };
 
     laf::render_manager::gen_model(vertices, indices);
+    laf::input_manager::toggle_cursor(false);
     
     // main loop
     while(!window->is_open()) {
         window->update();
         window->wait_for_exit();
 
-        laf::input_manager::poll_input(window.get());
+        laf::input_manager::poll_input();
         
         laf::render_manager::render();
-
-        laf::input_manager::reset();
     }
 
     laf::render_manager::terminate();

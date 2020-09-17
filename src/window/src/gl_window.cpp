@@ -59,7 +59,18 @@ namespace laf {
         glfwTerminate();
     }
 
+    void gl_window::toggle_cursor(bool on) {
+        auto mode = on ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED;
+        glfwSetInputMode(window_, GLFW_CURSOR, mode);
+    }
+
     int gl_window::get_key(int key) const {
         return glfwGetKey(window_, key);
+    }
+
+    std::pair<double, double> gl_window::cursor_location() const {
+        double x, y;
+        glfwGetCursorPos(window_, &x, &y);
+        return { x, y };
     }
 }

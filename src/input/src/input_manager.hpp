@@ -10,16 +10,20 @@ namespace laf {
         ~input_manager();
         
         template<typename T>
-        static void init();
+        static void init(const std::shared_ptr<window>& window);
 
-        static void poll_input(window* window);
+        static void poll_input();
         static void reset();
+        static void toggle_cursor(bool on);
         static int get_input(const std::string& name);
+        static std::pair<double, double> cursor_location();
+        static std::pair<double, double> cursor_axes(bool normalized);
 
     private:
-        static std::unique_ptr<input> shared_;
+        static std::shared_ptr<window> window_;
+        static std::unique_ptr<input> input_;
     };
 
     template<>
-    void input_manager::init<gl_input>();
+    void input_manager::init<gl_input>(const std::shared_ptr<window>& window);
 }
