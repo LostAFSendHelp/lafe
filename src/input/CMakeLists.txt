@@ -14,5 +14,5 @@ add_library(
     src/input_manager.cpp
 )
 
-target_link_libraries(laf-input PRIVATE glfw laf-window)
+target_link_libraries(laf-input PUBLIC glfw laf-window)
 target_include_directories(laf-input PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)

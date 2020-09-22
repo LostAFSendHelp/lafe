@@ -26,9 +26,10 @@ search(GLEW REQUIRED)
 add_subdirectory(src/input)
 add_subdirectory(src/window)
 add_subdirectory(src/renderer)
+add_subdirectory(src/ecs)
 
 # Executables
 add_executable(lafe-program src/lafe-program.cpp)
 
 # linkage
-target_link_libraries(lafe-program PRIVATE laf-input laf-window laf-renderer)
+target_link_libraries(lafe-program PRIVATE laf-input laf-window laf-renderer laf-ecs)

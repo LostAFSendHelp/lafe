@@ -13,7 +13,7 @@ namespace laf {
 
         void render() override;
         void render(camera* camera) override;
-        void remove_model(unsigned int id);
+        void remove_model(unsigned int id) override;
         std::shared_ptr<model> gen_model(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) override;
     
     private:

@@ -2,6 +2,8 @@
 #include <input_manager.hpp>
 #include <render_manager.hpp>
 #include <gl_window.hpp>
+#include <entity.hpp>
+#include <derived/movement.hpp>
 #include <memory>
 #include <iostream>
 
@@ -49,7 +51,14 @@ int main() {
         6, 7, 3
     };
 
-    laf::render_manager::gen_model(vertices, indices);
+    auto model = laf::render_manager::gen_model(vertices, indices);
+    auto entity = std::make_shared<laf::entity>();
+    entity->add_model(model);
+    auto movement = std::make_shared<laf::movement>();
+    entity->add_component(movement);
+    movement->attach(entity);
+
+    entity->awake();
     laf::input_manager::toggle_cursor(false);
     
     // main loop
@@ -61,6 +70,8 @@ int main() {
 
         // TODO: this is for testing only, remove when done
         {
+            entity->update();
+
             // TODO: check rotation
             static const float TURN_RATE = .0004f;
             auto front = camera->front();
