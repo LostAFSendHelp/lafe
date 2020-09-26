@@ -6,10 +6,9 @@
     "configurations": [
         {
             "name": "(Windows) Launch",
-            "preLaunchTask": "build",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/debug/lafe-program.exe",
+            "program": "${workspaceFolder}/build/Debug/lafe-program.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

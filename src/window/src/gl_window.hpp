@@ -10,13 +10,13 @@ namespace laf {
 
         void init() override;
         void update() override;
-        bool is_open() const;
+        bool is_open() const override;
         void wait_for_exit() override;
         void terminate() override;
-        void toggle_cursor(bool on);
+        void toggle_cursor(bool on) override;
 
         int get_key(int key) const override;
-        std::pair<double, double> cursor_location() const;
+        std::pair<double, double> cursor_location() const override;
     
     private:
         GLFWwindow* window_;

@@ -72,7 +72,6 @@ int main() {
         {
             entity->update();
 
-            // TODO: check rotation
             static const float TURN_RATE = .0004f;
             auto front = camera->front();
             auto right = camera->right();
@@ -94,10 +93,6 @@ int main() {
                 camera->set_position(position);
             }
 
-            auto cursor = laf::input_manager::cursor_axes(true);
-            if (cursor.first != .0f || cursor.second != .0f) {
-                std::cout << cursor.first << " - " << cursor.second << std::endl;
-            }
         }
 
         
