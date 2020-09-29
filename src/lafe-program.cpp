@@ -54,9 +54,8 @@ int main() {
     auto model = laf::render_manager::gen_model(vertices, indices);
     auto entity = std::make_shared<laf::entity>();
     entity->add_model(model);
-    auto movement = std::make_shared<laf::movement>();
-    entity->add_component(movement);
-    movement->attach(entity);
+    std::shared_ptr<laf::component> movement = std::make_shared<laf::movement>();
+    entity->attach_component(movement);
 
     entity->awake();
     laf::input_manager::toggle_cursor(false);

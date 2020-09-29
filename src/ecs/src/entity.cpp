@@ -1,4 +1,5 @@
 #include "entity.hpp"
+#include <iostream>
 
 namespace laf {
     unsigned int entity::count_ = 0;
@@ -9,19 +10,23 @@ namespace laf {
     }
 
     entity::~entity() {
-
+        flush_components();
+        std::cout << "Entity ID " << id_ << " destroyed" << std::endl;
     }
 
-    bool entity::add_component(const std::shared_ptr<component>& target) {
+    bool entity::attach_component(const std::shared_ptr<component>& target) {
         // TODO: consider if necessary to check for duplicate
         components_.push_back(target);
+        target->attach(this);
         return true;
     }
 
-    bool entity::remove_component(const std::shared_ptr<component>& target) {
+    bool entity::detach_component(const std::shared_ptr<component>& target) {
         if (!components_.empty()) {
             auto removed = std::remove_if(components_.begin(), components_.end(), [target](const std::shared_ptr<component>& component) {
-                return target->id_ == component->id_;
+                auto result = (target->id_ == component->id_);
+                if (result) target->detach();
+                return result;
             });
 
             components_.erase(removed, components_.end());
@@ -30,16 +35,26 @@ namespace laf {
         return true;
     }
 
-    bool entity::remove_component(unsigned int id) {
+    bool entity::detach_component(unsigned int id) {
         if (!components_.empty()) {
             auto removed = std::remove_if(components_.begin(), components_.end(), [id](const std::shared_ptr<component>& target) {
-                return target->id_ == id;
+                auto result = target->id_ == id;
+                if (result) target->detach();
+                return result;
             });
 
             components_.erase(removed, components_.end());
         }
         
         return true;
+    }
+
+    void entity::flush_components() {
+        for (auto& component : components_) {
+            component->detach();
+        }
+
+        components_.clear();
     }
 
     void entity::awake() {

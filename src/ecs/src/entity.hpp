@@ -12,9 +12,10 @@ namespace laf {
         entity();
         ~entity();
 
-        bool add_component(const std::shared_ptr<component>& target);
-        bool remove_component(const std::shared_ptr<component>& target);
-        bool remove_component(unsigned int id);
+        bool attach_component(const std::shared_ptr<component>& target);
+        bool detach_component(const std::shared_ptr<component>& target);
+        bool detach_component(unsigned int id);
+        void flush_components();
         
         template<typename T>
         std::shared_ptr<T> get_component() const;

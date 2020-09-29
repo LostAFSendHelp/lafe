@@ -11,17 +11,30 @@ namespace laf {
     }
 
     component::~component() {
+        if (entity_ != nullptr) entity_->detach_component(id_);
 
+        std::cout << "Component ID " << id_ << " destroyed" << std::endl;
     }
 
-    void component::attach(const std::shared_ptr<entity>& target) {
-        entity_ = target;
+    void component::attach(entity* target) {
+        if (entity_ != nullptr) {
+            entity_->detach_component(id_);
+        }
+        entity_.reset(target);
+    }
+
+    void component::detach() {
+        entity_.release();
     }
 
     std::shared_ptr<model> component::model() const {
-        auto entity = entity_.lock();
-        if (entity != nullptr) {
-            return entity->model();
+        static auto test = (entity_ == nullptr);
+        if (test) {
+            std::cout << test << std::endl;
+            test = false; 
+        }
+        if (entity_ != nullptr) {
+            return entity_->model();
         }
 
         return { nullptr };

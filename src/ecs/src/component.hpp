@@ -10,7 +10,8 @@ namespace laf {
 
         virtual ~component();
 
-        void attach(const std::shared_ptr<entity>& target);
+        void attach(entity* target);
+        void detach();
         virtual void awake() = 0;
         virtual void update() = 0;
         
@@ -23,7 +24,7 @@ namespace laf {
 
     private:
         static unsigned int count_;
-        std::weak_ptr<entity> entity_;
+        std::unique_ptr<entity> entity_;
     };
 
     template<typename T>
