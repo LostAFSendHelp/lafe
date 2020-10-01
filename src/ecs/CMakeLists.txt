@@ -14,3 +14,4 @@ add_library(
 
 target_link_libraries(laf-ecs PUBLIC laf-renderer laf-input)
 target_include_directories(laf-ecs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+config_macros(laf-ecs)

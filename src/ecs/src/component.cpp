@@ -1,4 +1,7 @@
-#include <iostream>
+#ifdef __DEBUG__
+    #include <iostream>
+#endif
+
 #include "component.hpp"
 #include "entity.hpp"
 
@@ -12,8 +15,10 @@ namespace laf {
 
     component::~component() {
         if (entity_ != nullptr) entity_->detach_component(id_);
-
-        std::cout << "Component ID " << id_ << " destroyed" << std::endl;
+        
+        #ifdef __DEBUG__
+            std::cout << "Component ID " << id_ << " destroyed" << std::endl;
+        #endif
     }
 
     void component::attach(entity* target) {
@@ -28,11 +33,6 @@ namespace laf {
     }
 
     std::shared_ptr<model> component::model() const {
-        static auto test = (entity_ == nullptr);
-        if (test) {
-            std::cout << test << std::endl;
-            test = false; 
-        }
         if (entity_ != nullptr) {
             return entity_->model();
         }

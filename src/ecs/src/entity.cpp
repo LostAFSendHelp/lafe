@@ -1,17 +1,24 @@
+#ifdef __DEBUG__
+    #include <iostream>
+#endif
+
 #include "entity.hpp"
-#include <iostream>
 
 namespace laf {
     unsigned int entity::count_ = 0;
 
     entity::entity():
     id_(0) {
-
+        #ifdef __DEBUG__
+            std::cout << "Entity ID " << id_ << " created" << std::endl;
+        #endif
     }
 
     entity::~entity() {
         flush_components();
-        std::cout << "Entity ID " << id_ << " destroyed" << std::endl;
+        #ifdef __DEBUG__
+            std::cout << "Entity ID " << id_ << " destroyed" << std::endl;
+        #endif
     }
 
     bool entity::attach_component(const std::shared_ptr<component>& target) {
@@ -50,6 +57,12 @@ namespace laf {
     }
 
     void entity::flush_components() {
+        #ifdef __DEBUG__
+            if (!components_.empty()) {
+                std::cout << "Flushing all components on Entity ID " << id_ << std::endl;
+            }
+        #endif
+
         for (auto& component : components_) {
             component->detach();
         }

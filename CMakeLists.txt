@@ -1,12 +1,18 @@
 cmake_minimum_required(VERSION 3.17)
 
-# basic setups
+# Basic setups
 project(lafe)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
-# functions
+# Functions
+macro(config_macros target)
+    target_compile_definitions(${target}
+        PRIVATE $<$<CONFIG:DEBUG>:__DEBUG__>
+                $<$<CONFIG:RELEASE>:__RELEASE__>)
+endmacro()
+
 macro(search find_name modes)
     message(STATUS "- Searching for package [${find_name}]")
     find_package(${find_name} ${modes})
@@ -31,5 +37,8 @@ add_subdirectory(src/ecs)
 # Executables
 add_executable(lafe-program src/lafe-program.cpp)
 
-# linkage
+# Configs
+config_macros(lafe-program)
+
+# Linkage
 target_link_libraries(lafe-program PRIVATE laf-input laf-window laf-renderer laf-ecs)

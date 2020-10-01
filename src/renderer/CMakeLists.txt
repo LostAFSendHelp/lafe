@@ -33,3 +33,4 @@ add_library(
 
 target_link_libraries(laf-renderer PUBLIC GLEW::GLEW glm)
 target_include_directories(laf-renderer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+config_macros(laf-renderer)

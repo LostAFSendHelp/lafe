@@ -16,3 +16,4 @@ add_library(
 
 target_link_libraries(laf-input PUBLIC glfw laf-window)
 target_include_directories(laf-input PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+config_macros(laf-input)

@@ -8,3 +8,4 @@ add_library(
 
 target_link_libraries(laf-window PUBLIC glfw GLEW::GLEW)
 target_include_directories(laf-window PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+config_macros(laf-window)
