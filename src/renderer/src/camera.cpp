@@ -8,7 +8,7 @@ namespace laf {
     const float camera::FAR = 100.0f;
 
     camera::camera():
-    position_(.0f, 1.0f, 3.0f),
+    position_(.0f, 0.0f, 3.0f),
     last_position_(position_),
     front_(.0f, .0f, -1.0f),
     last_front_(front_),

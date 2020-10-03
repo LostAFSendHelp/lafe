@@ -10,9 +10,6 @@
 
 int main() {
 
-    laf::geometry::gen_sample_cube(.0f);
-    laf::geometry::gen_sample_sphere(.0f, 0, 0);
-
     // setup
     std::shared_ptr<laf::window> window{ new laf::gl_window{ } };
     window->init();
@@ -22,7 +19,7 @@ int main() {
     laf::render_manager::init<laf::gl_renderer>();
     laf::render_manager::make_camera_current(camera);
 
-    auto model = laf::render_manager::gen_sample_cube();
+    auto model = laf::render_manager::gen_model(laf::geometry::gen_sample_sphere(.5f, 20, 20));
     auto entity = std::make_shared<laf::entity>();
     entity->add_model(model);
     std::shared_ptr<laf::component> movement = std::make_shared<laf::movement>();
