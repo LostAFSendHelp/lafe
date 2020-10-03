@@ -36,6 +36,43 @@ namespace laf {
         camera_ = camera;
     }
 
+    std::shared_ptr<model> render_manager::gen_sample_cube() {
+        std::vector<laf::vertex> vertices {
+            {{-.25f, .25f, .25f }, { 0.0f, 0.0f, 1.0f }},     // TLF
+            {{ .25f, .25f, .25f }, { 1.0f, 0.0f, 0.0f }},     // TRF
+            {{ .25f, -.25f, .25f }, { 1.0f, 1.0f, 0.0f }},     // BRF
+            {{-.25f, -.25f, .25f }, { 0.0f, 1.0f, 0.0f }},     // BLF
+            
+            {{-.25f, .25f, -.25f }, { 0.0f, 0.0f, 1.0f }},    // TLB
+            {{ .25f, .25f, -.25f }, { 1.0f, 0.0f, 0.0f }},    // TRB
+            {{ .25f, -.25f, -.25f }, { 1.0f, 1.0f, 0.0f }},    // BRB
+            {{-.25f, -.25f, -.25f }, { 0.0f, 1.0f, 0.0f }}     // BLB
+        };
+
+        std::vector<unsigned int> indices {
+            // front
+            0, 1, 2,
+            2, 3, 0,
+            // right
+            1, 5, 6,
+            6, 2, 1,
+            // back
+            7, 6, 5,
+            5, 4, 7,
+            // left
+            4, 0, 3,
+            3, 7, 4,
+            // bottom
+            4, 5, 1,
+            1, 0, 4,
+            // top
+            3, 2, 6,
+            6, 7, 3
+        };
+
+        return gen_model(vertices, indices);
+    }
+
     std::shared_ptr<model> render_manager::gen_model(std::vector<vertex>& vertices, std::vector<unsigned int>& indices) {
         _ASSERT(renderer_ != nullptr);
         return renderer_->gen_model(vertices, indices);

@@ -14,6 +14,7 @@ namespace laf {
         static void render();
         static void remove_model(unsigned int id);
         static void make_camera_current(const std::shared_ptr<camera>& camera);
+        static std::shared_ptr<model> gen_sample_cube();
 
         static std::shared_ptr<model> gen_model(std::vector<vertex>& vertices, std::vector<unsigned int>& indices);
 
