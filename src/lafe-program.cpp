@@ -4,10 +4,14 @@
 #include <gl_window.hpp>
 #include <entity.hpp>
 #include <derived/movement.hpp>
+#include <geometry.hpp>
 #include <memory>
 #include <iostream>
 
 int main() {
+
+    laf::geometry::gen_sample_cube(.0f);
+    laf::geometry::gen_sample_sphere(.0f, 0, 0);
 
     // setup
     std::shared_ptr<laf::window> window{ new laf::gl_window{ } };

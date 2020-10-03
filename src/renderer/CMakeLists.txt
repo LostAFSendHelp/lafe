@@ -5,8 +5,6 @@ add_library(
     src/model.cpp
     src/renderer.hpp
     src/renderer.cpp
-    src/vertex.hpp
-    src/vertex.cpp
     src/render_manager.hpp
     src/render_manager.cpp
     src/camera.hpp
@@ -31,6 +29,6 @@ add_library(
     src/gl/src/render/gl_shader.cpp
 )
 
-target_link_libraries(laf-renderer PUBLIC GLEW::GLEW glm)
+target_link_libraries(laf-renderer PUBLIC laf-geometry GLEW::GLEW)
 target_include_directories(laf-renderer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 config_macros(laf-renderer)

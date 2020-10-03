@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
+#include <vertex.hpp>
 #include "gl_vertex_buffer.hpp"
-#include "../../../vertex.hpp"
 
 namespace laf {
     class gl_array_buffer : public gl_vertex_buffer {

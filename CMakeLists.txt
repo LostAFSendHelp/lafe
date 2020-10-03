@@ -29,6 +29,7 @@ search(glm CONFIG REQUIRED)
 search(GLEW REQUIRED)
 
 # Subdirectories
+add_subdirectory(src/geometry)
 add_subdirectory(src/input)
 add_subdirectory(src/window)
 add_subdirectory(src/renderer)
@@ -41,4 +42,4 @@ add_executable(lafe-program src/lafe-program.cpp)
 config_macros(lafe-program)
 
 # Linkage
-target_link_libraries(lafe-program PRIVATE laf-input laf-window laf-renderer laf-ecs)
+target_link_libraries(lafe-program PRIVATE laf-geometry laf-input laf-window laf-renderer laf-ecs)

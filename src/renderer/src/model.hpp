@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "vertex.hpp"
+#include <vertex.hpp>
 
 namespace laf {
     class model {

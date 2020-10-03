@@ -14,8 +14,8 @@ namespace laf {
         bind();
         glBufferData(type, sizeof(float) * vertices_.size(), &vertices_[0], GL_STATIC_DRAW);
         
-        glVertexAttribPointer(0, vertex::SIZE_POSITION, GL_FLOAT, GL_FALSE, sizeof(float) * vertex::SIZE_VERTEX, nullptr);
-        glVertexAttribPointer(1, vertex::SIZE_COLOR, GL_FLOAT, GL_FALSE, sizeof(float) * vertex::SIZE_VERTEX, (void*)(sizeof(float) * vertex::SIZE_POSITION));
+        glVertexAttribPointer(0, vertex::size_position(), GL_FLOAT, GL_FALSE, sizeof(float) * vertex::size_vertex(), nullptr);
+        glVertexAttribPointer(1, vertex::size_color(), GL_FLOAT, GL_FALSE, sizeof(float) * vertex::size_vertex(), (void*)(sizeof(float) * vertex::size_position()));
         
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
