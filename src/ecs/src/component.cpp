@@ -10,7 +10,9 @@ namespace laf {
 
     component::component():
     id_(count_++) {
-
+        #ifdef __DEBUG__
+            std::cout << "Component ID " << id_ << " created" << std::endl;
+        #endif
     }
 
     component::~component() {

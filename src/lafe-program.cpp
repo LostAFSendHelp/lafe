@@ -19,13 +19,21 @@ int main() {
     laf::render_manager::init<laf::gl_renderer>();
     laf::render_manager::make_camera_current(camera);
 
-    auto model = laf::render_manager::gen_model(laf::geometry::gen_sample_sphere(.5f, 3, 80));
-    auto entity = std::make_shared<laf::entity>();
-    entity->add_model(model);
-    std::shared_ptr<laf::component> movement = std::make_shared<laf::movement>();
-    entity->attach_component(movement);
+    auto sphere_model = laf::render_manager::gen_model(laf::geometry::gen_sample_sphere(.25f, 40, 60));
+    auto sphere = std::make_shared<laf::entity>();
+    sphere->add_model(sphere_model);
+    std::shared_ptr<laf::component> sphere_movement = std::make_shared<laf::movement>();
+    sphere->attach_component(sphere_movement);
+    sphere->model()->translate({ -.5f, .0f, .0f });
 
-    entity->awake();
+    auto cube_model = laf::render_manager::gen_model(laf::geometry::gen_sample_cube(.5f));
+    auto cube = std::make_shared<laf::entity>();
+    cube->add_model(cube_model);
+    std::shared_ptr<laf::component> cube_movement = std::make_shared<laf::movement>();
+    cube->attach_component(cube_movement);
+    cube->model()->translate({ .5f, .0f, .0f });
+
+    sphere->awake();
     laf::input_manager::toggle_cursor(false);
     
     // main loop
@@ -37,7 +45,8 @@ int main() {
 
         // TODO: this is for testing only, remove when done
         {
-            entity->update();
+            sphere->update();
+            cube->update();
 
             static const float TURN_RATE = .0004f;
             auto front = camera->front();

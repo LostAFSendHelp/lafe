@@ -76,7 +76,7 @@ namespace laf {
         // north pole
         _vertices.push_back({
             { .0f, _radius, .0f },
-            { .0f, _radius, .0f },
+            { .0f, 1.0f, .0f },
         });
 
         for (unsigned int _cur_sector = 1; _cur_sector < _sectors; ++_cur_sector) {
@@ -95,7 +95,7 @@ namespace laf {
 
                 _vertices.push_back({
                     { _x, _y, _z, },
-                    { glm::abs(_x), glm::abs(_y), glm::abs(_z) }
+                    { glm::abs(_x) / _radius, glm::abs(_y) / _radius, glm::abs(_z) / _radius }
                 });
 
                 // add indices
@@ -127,7 +127,7 @@ namespace laf {
         // south pole
         _vertices.push_back({
             { .0f, -_radius, .0f },
-            { .0f, _radius, .0f },
+            { .0f, 1.0f, .0f },
         });
 
         #ifdef __DEBUG__

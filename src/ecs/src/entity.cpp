@@ -8,7 +8,7 @@ namespace laf {
     unsigned int entity::count_ = 0;
 
     entity::entity():
-    id_(0) {
+    id_(count_++) {
         #ifdef __DEBUG__
             std::cout << "Entity ID " << id_ << " created" << std::endl;
         #endif
