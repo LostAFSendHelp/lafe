@@ -51,7 +51,7 @@ namespace laf {
         return { vertices, indices };
     }
 
-    std::pair<std::vector<vertex>, std::vector<unsigned int>> geometry::gen_sample_sphere(float radius, unsigned int sectors, unsigned int stacks) {
+    std::pair<std::vector<vertex>, std::vector<unsigned int>> geometry::gen_sample_sphere(float radius, unsigned int sectors, unsigned int stacks, const glm::vec3& color) {
         #ifdef __DEBUG__
             std::cout << "CALLING " << __func__ << std::endl;
         #endif
@@ -76,7 +76,7 @@ namespace laf {
         // north pole
         _vertices.push_back({
             { .0f, _radius, .0f },
-            { .0f, 1.0f, .0f },
+            color
         });
 
         for (unsigned int _cur_sector = 1; _cur_sector < _sectors; ++_cur_sector) {
@@ -95,7 +95,7 @@ namespace laf {
 
                 _vertices.push_back({
                     { _x, _y, _z, },
-                    { glm::abs(_x) / _radius, glm::abs(_y) / _radius, glm::abs(_z) / _radius }
+                    color
                 });
 
                 // add indices
@@ -127,7 +127,7 @@ namespace laf {
         // south pole
         _vertices.push_back({
             { .0f, -_radius, .0f },
-            { .0f, 1.0f, .0f },
+            color
         });
 
         #ifdef __DEBUG__

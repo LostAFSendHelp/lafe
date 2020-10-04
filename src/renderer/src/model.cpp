@@ -5,7 +5,8 @@ namespace laf {
     unsigned int model::count_ = 0;
 
     model::model():
-    id(count_++) {
+    id_(count_++),
+    is_light_source_(false) {
         
     }
 

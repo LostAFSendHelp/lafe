@@ -24,7 +24,6 @@ namespace laf {
     void render_manager::render() {
         _ASSERT(renderer_ != nullptr && camera_ != nullptr);
         renderer_->render(camera_.get());
-        renderer_->render();
     }
 
     void render_manager::remove_model(unsigned int id) {
@@ -34,6 +33,16 @@ namespace laf {
 
     void render_manager::make_camera_current(const std::shared_ptr<camera>& camera) {
         camera_ = camera;
+    }
+
+    void render_manager::light_color(const glm::vec3& color) {
+        _ASSERT(renderer_ != nullptr);
+        renderer_->light_color_ = color;
+    }
+
+    glm::vec3 render_manager::light_color() {
+        _ASSERT(renderer_ != nullptr);
+        return renderer_->light_color_;
     }
 
     std::shared_ptr<model> render_manager::gen_model(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) {

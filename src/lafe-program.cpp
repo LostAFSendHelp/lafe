@@ -11,62 +11,64 @@
 int main() {
 
     // setup
-    std::shared_ptr<laf::window> window{ new laf::gl_window{ } };
-    window->init();
-    std::shared_ptr<laf::camera> camera{ new laf::camera{ } };
+    std::shared_ptr<laf::window> _window{ new laf::gl_window{ } };
+    _window->init();
+    std::shared_ptr<laf::camera> _camera{ new laf::camera{ } };
     
-    laf::input_manager::init<laf::gl_input>(window);
+    laf::input_manager::init<laf::gl_input>(_window);
     laf::render_manager::init<laf::gl_renderer>();
-    laf::render_manager::make_camera_current(camera);
+    laf::render_manager::make_camera_current(_camera);
 
-    auto sphere_model = laf::render_manager::gen_model(laf::geometry::gen_sample_sphere(.25f, 40, 60));
-    auto sphere = std::make_shared<laf::entity>();
-    sphere->add_model(sphere_model);
-    std::shared_ptr<laf::component> sphere_movement = std::make_shared<laf::movement>();
-    sphere->attach_component(sphere_movement);
-    sphere->model()->translate({ -.5f, .0f, .0f });
+    glm::vec3 _color{ 1.0f, .7f, .0f };
+    auto _sphere_model = laf::render_manager::gen_model(laf::geometry::gen_sample_sphere(.25f, 40, 60, _color));
+    auto _sphere = std::make_shared<laf::entity>();
+    _sphere->add_model(_sphere_model);
+    _sphere->model()->translate({ -.5f, .0f, .0f });
+    _sphere->model()->is_light_source_ = true;
 
-    auto cube_model = laf::render_manager::gen_model(laf::geometry::gen_sample_cube(.5f));
-    auto cube = std::make_shared<laf::entity>();
-    cube->add_model(cube_model);
-    std::shared_ptr<laf::component> cube_movement = std::make_shared<laf::movement>();
-    cube->attach_component(cube_movement);
-    cube->model()->translate({ .5f, .0f, .0f });
+    auto _cube_model = laf::render_manager::gen_model(laf::geometry::gen_sample_cube(.5f));
+    auto _cube = std::make_shared<laf::entity>();
+    _cube->add_model(_cube_model);
+    std::shared_ptr<laf::component> _cube_movement = std::make_shared<laf::movement>();
+    _cube->attach_component(_cube_movement);
+    _cube->model()->translate({ .5f, .0f, .0f });
 
-    sphere->awake();
+    laf::render_manager::light_color(_color);
+
+    _sphere->awake();
     laf::input_manager::toggle_cursor(false);
     
     // main loop
-    while(!window->is_open()) {
-        window->update();
-        window->wait_for_exit();
+    while(!_window->is_open()) {
+        _window->update();
+        _window->wait_for_exit();
 
         laf::input_manager::poll_input();
 
         // TODO: this is for testing only, remove when done
         {
-            sphere->update();
-            cube->update();
+            _sphere->update();
+            _cube->update();
 
             static const float TURN_RATE = .0004f;
-            auto front = camera->front();
-            auto right = camera->right();
-            auto cursor_axes = laf::input_manager::cursor_axes(false);
-            auto rotation_x = (float)cursor_axes.second * TURN_RATE * -1;
-            auto rotation_y = (float)cursor_axes.first * TURN_RATE * -1;
-            front = glm::rotate(front, rotation_x, right);
-            front = glm::rotateY(front, rotation_y);
-            camera->set_front(front);
+            auto _front = _camera->front();
+            auto _right = _camera->right();
+            auto _cursor_axes = laf::input_manager::cursor_axes(false);
+            auto _rotation_x = (float)_cursor_axes.second * TURN_RATE * -1;
+            auto _rotation_y = (float)_cursor_axes.first * TURN_RATE * -1;
+            _front = glm::rotate(_front, _rotation_x, _right);
+            _front = glm::rotateY(_front, _rotation_y);
+            _camera->set_front(_front);
 
             // translate
             static const float SPEED = .01f;
-            float horizontal = laf::input_manager::get_input("horizontal");
-            float vertical = laf::input_manager::get_input("vertical");
-            auto position = camera->position();
-            auto transformation = vertical * camera->front() + horizontal * camera->right();
-            if (transformation != glm::vec3{ .0f, .0f, .0f }) {
-                position += SPEED * glm::normalize(transformation);
-                camera->set_position(position);
+            float _horizontal = laf::input_manager::get_input("horizontal");
+            float _vertical = laf::input_manager::get_input("vertical");
+            auto _position = _camera->position();
+            auto _transformation = _vertical * _camera->front() + _horizontal * _camera->right();
+            if (_transformation != glm::vec3{ .0f, .0f, .0f }) {
+                _position += SPEED * glm::normalize(_transformation);
+                _camera->set_position(_position);
             }
 
         }
@@ -76,7 +78,7 @@ int main() {
     }
 
     laf::render_manager::terminate();
-    window->terminate();
+    _window->terminate();
 
     return 0;
 }

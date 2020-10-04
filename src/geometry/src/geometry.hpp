@@ -29,6 +29,6 @@ namespace laf {
          * @param stacks number of stacks, clamped to [3, 100]
          * @return std::pair<std::vector<vertex> vertices, std::vector<unsigned int> indices> data
         */
-        static std::pair<std::vector<vertex>, std::vector<unsigned int>> gen_sample_sphere(float radius, unsigned int sectors, unsigned int stacks);
+        static std::pair<std::vector<vertex>, std::vector<unsigned int>> gen_sample_sphere(float radius, unsigned int sectors, unsigned int stacks, const glm::vec3& color);
     };
 };

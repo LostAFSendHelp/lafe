@@ -5,7 +5,8 @@
 namespace laf {
     class model {
     public:
-        const unsigned int id;
+        const unsigned int id_;
+        bool is_light_source_; // currently only means the model's color is rendered as-is
 
         model();
         virtual ~model();

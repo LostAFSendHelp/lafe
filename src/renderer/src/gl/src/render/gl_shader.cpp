@@ -1,5 +1,8 @@
+#ifdef __DEBUG__
+    #include <iostream>
+#endif
+
 #include <fstream>
-#include <iostream>
 #include "gl_shader.hpp"
 
 namespace laf {
@@ -28,11 +31,13 @@ namespace laf {
         glShaderSource(id_, 1, &source_string, nullptr);
         glCompileShader(id_);
 
-        if (auto log = get_log()) {
-            std::cout << "[SHADER COMPILATION ERROR] : " << log << std::endl;
-            delete[] log;
-            return false;
-        }
+        #ifdef __DEBUG__
+            if (auto log = get_log()) {
+                std::cout << "[SHADER COMPILATION ERROR] : " << log << std::endl;
+                delete[] log;
+                return false;
+            }
+        #endif
 
         return true;
     }
