@@ -56,10 +56,11 @@ namespace laf {
             std::cout << "CALLING " << __func__ << std::endl;
         #endif
 
-        const unsigned int MIN_SECTORS = 6;
+        // clamp inputs
+        const unsigned int MIN_SECTORS = 3;
         const unsigned int MAX_SECTORS = 100;
 
-        const unsigned int MIN_STACKS = 3;
+        const unsigned int MIN_STACKS = 6;
         const unsigned int MAX_STACKS = 100;
 
         const float MIN_RADIUS = .1f;
@@ -78,21 +79,19 @@ namespace laf {
             { .0f, _radius, .0f },
         });
 
-        for (unsigned int _cur_stack = 1; _cur_stack < _stacks; ++_cur_stack) {
-            auto _theta = glm::half_pi<float>() - glm::pi<float>() * ((float)_cur_stack / (float)_stacks); // drawing top-down
-            auto _y = _radius * glm::sin(_theta);
+        for (unsigned int _cur_sector = 1; _cur_sector < _sectors; ++_cur_sector) {
+            auto _roll = glm::half_pi<float>() - glm::pi<float>() * ((float)_cur_sector / (float)_sectors); // drawing top-down
+            auto _y = _radius * glm::sin(_roll);
 
-            auto _top_anchor = (_cur_stack - 1) * _sectors + 1;
-            auto _bottom_anchor = _top_anchor + _sectors;
+            auto _top_anchor = (_cur_sector - 1) * _stacks + 1;
+            auto _bottom_anchor = _top_anchor + _stacks;
 
-            for (unsigned int _cur_sector = 0;
-            _cur_sector < _sectors;
-            ++_cur_sector, ++_top_anchor, ++_bottom_anchor) {
+            for (unsigned int _cur_stack = 0; _cur_stack < _stacks; ++_cur_stack, ++_top_anchor, ++_bottom_anchor) {
                 
                 // add vertex
-                auto _phi = glm::pi<float>() * 2.0f * ((float)_cur_sector / (float)_sectors);
-                auto _x = _radius * glm::cos(_theta) * glm::sin(_phi);
-                auto _z = _radius * glm::cos(_theta) * glm::cos(_phi);
+                auto _yaw = glm::pi<float>() * 2.0f * ((float)_cur_stack / (float)_stacks);
+                auto _x = _radius * glm::cos(_roll) * glm::sin(_yaw);
+                auto _z = _radius * glm::cos(_roll) * glm::cos(_yaw);
 
                 _vertices.push_back({
                     { _x, _y, _z, },
@@ -100,16 +99,16 @@ namespace laf {
                 });
 
                 // add indices
-                auto _top_next = (_top_anchor % _sectors == 0) ? ((_cur_stack - 1) * _sectors + 1) : (_top_anchor + 1);
-                auto _bottom_next = _top_next + _sectors;
+                auto _top_next = (_top_anchor % _stacks == 0) ? ((_cur_sector - 1) * _stacks + 1) : (_top_anchor + 1); // draw through first point in sector if current point is last of sector
+                auto _bottom_next = _top_next + _stacks;
                 
-                if (_cur_stack == 1) {
-                    _indices.push_back(0);
+                if (_cur_sector == 1) {
+                    _indices.push_back(0); // index of north pole
                     _indices.push_back(_top_anchor);
                     _indices.push_back(_top_next);
                 }
 
-                if (_cur_stack < _stacks - 1) {
+                if (_cur_sector < _sectors - 1) {
                     _indices.push_back(_top_anchor);
                     _indices.push_back(_bottom_anchor);
                     _indices.push_back(_bottom_next);
@@ -119,7 +118,7 @@ namespace laf {
                     _indices.push_back(_top_next);
                 } else {
                     _indices.push_back(_top_anchor);
-                    _indices.push_back((_stacks - 1) * _sectors + 1);
+                    _indices.push_back((_sectors - 1) * _stacks + 1); // index of south pole
                     _indices.push_back(_top_next);
                 }
             }
