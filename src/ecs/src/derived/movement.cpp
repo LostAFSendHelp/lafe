@@ -16,13 +16,13 @@ namespace laf {
     }
 
     void movement::update() {
-        if (auto model = this->model()) {
-            model->rotate(.005f, { .0f, 1.0f, .0f }, false);
-            auto h = input_manager::get_input("leftright");
-            auto v = input_manager::get_input("updown");
+        if (auto _model = this->model()) {
+            _model->rotate(.005f, { .0f, 1.0f, .0f }, false);
+            auto _horizontal = input_manager::get_input("leftright");
+            auto _vertical = input_manager::get_input("updown");
 
-            glm::vec3 translation{ .005f * h, .0f, -.005f * v };
-            model->translate(translation);
+            glm::vec3 _translation{ .005f * _horizontal, .0f, -.005f * _vertical };
+            _model->translate(_translation);
         }
 
     }
