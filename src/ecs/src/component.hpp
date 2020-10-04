@@ -70,7 +70,6 @@ namespace laf {
 
     template<typename T>
     std::shared_ptr<T> component::get_component() const {
-        auto entity = entity_.lock();
         if (entity == nullptr) return { nullptr };
         return entity->get_component<T>();
     }
