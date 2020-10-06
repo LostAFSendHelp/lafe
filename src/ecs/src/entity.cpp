@@ -82,7 +82,7 @@ namespace laf {
         }
     }
 
-    void entity::add_model(const std::shared_ptr<laf::model>& model) {
-        model_ = model;
+    void entity::add_mesh(const std::shared_ptr<laf::mesh>& mesh) {
+        mesh_ = mesh;
     }
 }

@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "cmake-build d",
+            "command": "cls && cmake-build d",
             "group": {
                 "kind": "build",
                 "isDefault": true

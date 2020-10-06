@@ -1,8 +1,8 @@
-#include "gl_model.hpp"
+#include "gl_mesh.hpp"
 
 namespace laf {
-    gl_model::gl_model(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices):
-    model(),
+    gl_mesh::gl_mesh(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices):
+    mesh(),
     vao_() {
         vao_.bind();
 
@@ -15,7 +15,7 @@ namespace laf {
         vao_.unbind();
     }
 
-    gl_model::~gl_model() {
+    gl_mesh::~gl_mesh() {
 
     }
 }

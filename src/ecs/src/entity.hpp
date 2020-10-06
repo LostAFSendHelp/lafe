@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include <model.hpp>
+#include <mesh.hpp>
 #include "component.hpp"
 
 namespace laf {
@@ -22,15 +22,15 @@ namespace laf {
 
         void awake();
         void update();
-        void add_model(const std::shared_ptr<model>& model);
+        void add_mesh(const std::shared_ptr<mesh>& mesh);
         
-        inline std::shared_ptr<model> model() const {
-            return model_;
+        inline std::shared_ptr<mesh> mesh() const {
+            return mesh_;
         }
 
     private:
         static unsigned int count_;
-        std::shared_ptr<laf::model> model_;
+        std::shared_ptr<laf::mesh> mesh_;
         std::vector<std::shared_ptr<component>> components_;
     };
 

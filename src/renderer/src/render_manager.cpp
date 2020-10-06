@@ -26,9 +26,9 @@ namespace laf {
         renderer_->render(camera_.get());
     }
 
-    void render_manager::remove_model(unsigned int id) {
+    void render_manager::remove_mesh(unsigned int id) {
         _ASSERT(renderer_ != nullptr);
-        renderer_->remove_model(id);
+        renderer_->remove_mesh(id);
     }
 
     void render_manager::make_camera_current(const std::shared_ptr<camera>& camera) {
@@ -45,13 +45,13 @@ namespace laf {
         return renderer_->light_color_;
     }
 
-    std::shared_ptr<model> render_manager::gen_model(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) {
+    std::shared_ptr<mesh> render_manager::gen_mesh(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) {
         _ASSERT(renderer_ != nullptr);
-        return renderer_->gen_model(vertices, indices);
+        return renderer_->gen_mesh(vertices, indices);
     }
 
-    std::shared_ptr<model> render_manager::gen_model(const std::pair<std::vector<vertex>, std::vector<unsigned int>>& data) {
+    std::shared_ptr<mesh> render_manager::gen_mesh(const std::pair<std::vector<vertex>, std::vector<unsigned int>>& data) {
         _ASSERT(renderer_ != nullptr);
-        return renderer_->gen_model(data.first, data.second);
+        return renderer_->gen_mesh(data.first, data.second);
     }
 }

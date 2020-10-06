@@ -9,10 +9,14 @@ namespace laf {
     y_(600.0f / 2.0f),
     last_x_(x_),
     last_y_(y_) {
+
         items_.insert({ "horizontal", { GLFW_KEY_D, GLFW_KEY_A, 0 } });
         items_.insert({ "vertical", { GLFW_KEY_W, GLFW_KEY_S, 0 } });
+
         items_.insert({ "leftright", { GLFW_KEY_RIGHT, GLFW_KEY_LEFT, 0 } });
         items_.insert({ "updown", { GLFW_KEY_UP, GLFW_KEY_DOWN, 0 } });
+
+        items_.insert({ "rotate", { GLFW_KEY_X, GLFW_KEY_Z, 0 } });
     }
 
     gl_input::~gl_input() {

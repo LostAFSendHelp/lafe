@@ -3,13 +3,13 @@
 #include <vertex.hpp>
 
 namespace laf {
-    class model {
+    class mesh {
     public:
         const unsigned int id_;
-        bool is_light_source_; // currently only means the model's color is rendered as-is
+        bool is_light_source_; // currently only means the mesh's color is rendered as-is
 
-        model();
-        virtual ~model();
+        mesh();
+        virtual ~mesh();
 
         virtual void rotate(float radians, const glm::vec3& axis, bool normalized);
         virtual void translate(const glm::vec3& translation);

@@ -1,26 +1,26 @@
 #include <glm/gtc/matrix_transform.hpp>
-#include "model.hpp"
+#include "mesh.hpp"
 
 namespace laf {
-    unsigned int model::count_ = 0;
+    unsigned int mesh::count_ = 0;
 
-    model::model():
+    mesh::mesh():
     id_(count_++),
     is_light_source_(false) {
         
     }
 
-    model::~model() {
+    mesh::~mesh() {
  
     }
 
-    void model::rotate(float radians, const glm::vec3& axis, bool normalized) {
+    void mesh::rotate(float radians, const glm::vec3& axis, bool normalized) {
         rotation_ = glm::rotate(rotation_,
                                 radians,
                                 normalized ? glm::normalize(axis) : axis);
     }
 
-    void model::translate(const glm::vec3& translation) {
+    void mesh::translate(const glm::vec3& translation) {
         translation_ = glm::translate(translation_, translation);
     }
 }

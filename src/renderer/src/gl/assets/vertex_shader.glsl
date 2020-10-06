@@ -17,5 +17,3 @@ void main() {
     v_color = in_color;
     v_light_color = u_light_color;
 }
-
-// TODO: set light color in render_manager, set color for sphere (light source)

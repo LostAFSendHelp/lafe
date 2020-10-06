@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <model.hpp>
+#include <mesh.hpp>
 
 namespace laf {
     class entity;
@@ -54,11 +54,11 @@ namespace laf {
 
 
         /**
-         * @brief Returns a \c shared_ptr to the owning \c entity's \c model object. Returns \c nullptr if either the \c entity or its \c model is \c nullptr.
+         * @brief Returns a \c shared_ptr to the owning \c entity's \c mesh object. Returns \c nullptr if either the \c entity or its \c mesh is \c nullptr.
          * 
-         * @return std::shared_ptr<model> 
+         * @return std::shared_ptr<mesh> 
          */
-        std::shared_ptr<model> model() const;
+        std::shared_ptr<mesh> mesh() const;
 
     protected:
         component();

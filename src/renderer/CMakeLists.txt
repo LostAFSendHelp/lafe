@@ -1,8 +1,8 @@
 add_library(
     laf-renderer
 
-    src/model.hpp
-    src/model.cpp
+    src/mesh.hpp
+    src/mesh.cpp
     src/renderer.hpp
     src/renderer.cpp
     src/render_manager.hpp
@@ -14,8 +14,8 @@ add_library(
     src/gl/src/data/gl_array_buffer.cpp
     src/gl/src/data/gl_index_buffer.hpp
     src/gl/src/data/gl_index_buffer.cpp
-    src/gl/src/data/gl_model.hpp
-    src/gl/src/data/gl_model.cpp
+    src/gl/src/data/gl_mesh.hpp
+    src/gl/src/data/gl_mesh.cpp
     src/gl/src/data/gl_vao.hpp
     src/gl/src/data/gl_vao.cpp
     src/gl/src/data/gl_vertex_buffer.hpp

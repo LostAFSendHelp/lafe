@@ -34,9 +34,9 @@ namespace laf {
         entity_.release();
     }
 
-    std::shared_ptr<model> component::model() const {
+    std::shared_ptr<mesh> component::mesh() const {
         if (entity_ != nullptr) {
-            return entity_->model();
+            return entity_->mesh();
         }
 
         return { nullptr };

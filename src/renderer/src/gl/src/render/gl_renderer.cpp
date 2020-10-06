@@ -21,12 +21,12 @@ namespace laf {
     }
 
     void gl_renderer::render(camera* camera) {
-        for (const auto& _model : models_) {
-            const auto& _vao = _model->vao();
-            auto& _program = (_model->is_light_source_) ? light_source_program_ : basic_program_;
+        for (const auto& _mesh : meshes_) {
+            const auto& _vao = _mesh->vao();
+            auto& _program = (_mesh->is_light_source_) ? light_source_program_ : basic_program_;
             _program.use();
-            _program.set_uniform("u_rotation", _model->rotation());
-            _program.set_uniform("u_translation", _model->translation());
+            _program.set_uniform("u_rotation", _mesh->rotation());
+            _program.set_uniform("u_translation", _mesh->translation());
             _program.set_uniform("u_light_color", light_color_);
             _vao.bind();
             glDrawElements(GL_TRIANGLES, _vao.index_count(), GL_UNSIGNED_INT, nullptr);
@@ -37,18 +37,18 @@ namespace laf {
         }
     }
 
-    void gl_renderer::remove_model(unsigned int id) {
-        auto _removed = std::remove_if(models_.begin(), models_.end(), [id](const std::shared_ptr<gl_model>& model) {
-            return model->id_ == id;
+    void gl_renderer::remove_mesh(unsigned int id) {
+        auto _removed = std::remove_if(meshes_.begin(), meshes_.end(), [id](const std::shared_ptr<gl_mesh>& mesh) {
+            return mesh->id_ == id;
         });
 
-        models_.erase(_removed, models_.end());
+        meshes_.erase(_removed, meshes_.end());
     }
 
-    std::shared_ptr<model> gl_renderer::gen_model(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) {
-        std::shared_ptr<model> _model{ new gl_model{ vertices, indices } };
-        models_.push_back(std::static_pointer_cast<gl_model>(_model));
+    std::shared_ptr<mesh> gl_renderer::gen_mesh(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) {
+        std::shared_ptr<mesh> _mesh{ new gl_mesh{ vertices, indices } };
+        meshes_.push_back(std::static_pointer_cast<gl_mesh>(_mesh));
 
-        return _model;
+        return _mesh;
     }
 };
