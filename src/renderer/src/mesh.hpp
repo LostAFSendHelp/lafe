@@ -16,6 +16,7 @@ namespace laf {
 
         inline const glm::mat4& rotation() const { return rotation_; }
         inline const glm::mat4& translation() const { return translation_; }
+        inline glm::mat4 model() const { return translation_ * rotation_; }
 
         inline static unsigned int count() { return count_; }
 

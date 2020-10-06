@@ -25,8 +25,7 @@ namespace laf {
             const auto& _vao = _mesh->vao();
             auto& _program = (_mesh->is_light_source_) ? light_source_program_ : basic_program_;
             _program.use();
-            _program.set_uniform("u_rotation", _mesh->rotation());
-            _program.set_uniform("u_translation", _mesh->translation());
+            _program.set_uniform("u_model", _mesh->model());
             _program.set_uniform("u_light_color", light_color_);
             _vao.bind();
             glDrawElements(GL_TRIANGLES, _vao.index_count(), GL_UNSIGNED_INT, nullptr);
