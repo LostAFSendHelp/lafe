@@ -2,7 +2,7 @@
 #include "mesh.hpp"
 
 namespace laf {
-    unsigned int mesh::count_ = 0;
+    uint32_t mesh::count_ = 0;
 
     mesh::mesh():
     id_(count_++),

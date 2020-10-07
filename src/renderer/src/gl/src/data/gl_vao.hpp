@@ -19,7 +19,7 @@ namespace laf {
         void push(const T& data);
 
         inline GLuint id() const { return id_; }
-        inline unsigned int index_count() const { return i_buffer_->count(); }
+        inline uint32_t index_count() const { return i_buffer_->count(); }
 
     private:
         GLuint id_;
@@ -34,10 +34,10 @@ namespace laf {
     void gl_vao::gen_buffer<gl_index_buffer>();
 
     template<>
-    void gl_vao::push<unsigned int>(const unsigned int& data);
+    void gl_vao::push<uint32_t>(const uint32_t& data);
 
     template<>
-    void gl_vao::push<std::vector<unsigned int>>(const std::vector<unsigned int>& data);
+    void gl_vao::push<std::vector<uint32_t>>(const std::vector<uint32_t>& data);
 
     template<>
     void gl_vao::push<vertex>(const vertex& data);

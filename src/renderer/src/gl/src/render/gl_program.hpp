@@ -37,4 +37,7 @@ namespace laf {
 
     template<>
     void gl_program::set_uniform<glm::vec3>(const std::string& name, const glm::vec3& data);
+
+    template<>
+    void gl_program::set_uniform<float>(const std::string& name,const float& data);
 };

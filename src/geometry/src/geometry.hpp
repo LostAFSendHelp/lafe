@@ -15,9 +15,9 @@ namespace laf {
          * @brief Generates a vertices-indices pair of data for drawing a cube. Hard-coded base color.
          * 
          * @param edge normalized length of each edge, clamped to [.1, 1.0]
-         * @return std::pair<std::vector<vertex> vertices, std::vector<unsigned int> indices> data
+         * @return std::pair<std::vector<vertex> vertices, std::vector<uint32_t> indices> data
          */
-        static std::pair<std::vector<vertex>, std::vector<unsigned int>> gen_sample_cube(float edge);
+        static std::pair<std::vector<vertex>, std::vector<uint32_t>> gen_sample_cube(float edge);
         
 
 
@@ -27,8 +27,8 @@ namespace laf {
          * @param radius normalized radius, clamped to [.1, 1.0]
          * @param sectors number of sectors, clamped to [6, 100]
          * @param stacks number of stacks, clamped to [3, 100]
-         * @return std::pair<std::vector<vertex> vertices, std::vector<unsigned int> indices> data
+         * @return std::pair<std::vector<vertex> vertices, std::vector<uint32_t> indices> data
         */
-        static std::pair<std::vector<vertex>, std::vector<unsigned int>> gen_sample_sphere(float radius, unsigned int sectors, unsigned int stacks, const glm::vec3& color);
+        static std::pair<std::vector<vertex>, std::vector<uint32_t>> gen_sample_sphere(float radius, uint32_t sectors, uint32_t stacks, const glm::vec3& color);
     };
 };

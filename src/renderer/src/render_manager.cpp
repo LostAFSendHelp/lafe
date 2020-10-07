@@ -26,7 +26,7 @@ namespace laf {
         renderer_->render(camera_.get());
     }
 
-    void render_manager::remove_mesh(unsigned int id) {
+    void render_manager::remove_mesh(uint32_t id) {
         _ASSERT(renderer_ != nullptr);
         renderer_->remove_mesh(id);
     }
@@ -40,17 +40,29 @@ namespace laf {
         renderer_->light_color_ = color;
     }
 
+    void render_manager::ambient(float strength) {
+        _ASSERT(renderer_ != nullptr);
+        const float AMBIENT_MIN = .1f;
+        const float AMBIENT_MAX = 1.0f;
+        renderer_->ambient_ = glm::clamp(strength, AMBIENT_MIN, AMBIENT_MAX);
+    }
+
     glm::vec3 render_manager::light_color() {
         _ASSERT(renderer_ != nullptr);
         return renderer_->light_color_;
     }
 
-    std::shared_ptr<mesh> render_manager::gen_mesh(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) {
+    float render_manager::ambient() {
+        _ASSERT(renderer_ != nullptr);
+        return renderer_->ambient_;
+    }
+
+    std::shared_ptr<mesh> render_manager::gen_mesh(const std::vector<vertex>& vertices, const std::vector<uint32_t>& indices) {
         _ASSERT(renderer_ != nullptr);
         return renderer_->gen_mesh(vertices, indices);
     }
 
-    std::shared_ptr<mesh> render_manager::gen_mesh(const std::pair<std::vector<vertex>, std::vector<unsigned int>>& data) {
+    std::shared_ptr<mesh> render_manager::gen_mesh(const std::pair<std::vector<vertex>, std::vector<uint32_t>>& data) {
         _ASSERT(renderer_ != nullptr);
         return renderer_->gen_mesh(data.first, data.second);
     }

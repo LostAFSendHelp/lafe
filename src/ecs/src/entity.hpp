@@ -7,14 +7,14 @@
 namespace laf {
     class entity final {
     public:
-        const unsigned int id_;
+        const uint32_t id_;
 
         entity();
         ~entity();
 
         bool attach_component(const std::shared_ptr<component>& target);
         bool detach_component(const std::shared_ptr<component>& target);
-        bool detach_component(unsigned int id);
+        bool detach_component(uint32_t id);
         void flush_components();
         
         template<typename T>
@@ -29,7 +29,7 @@ namespace laf {
         }
 
     private:
-        static unsigned int count_;
+        static uint32_t count_;
         std::shared_ptr<laf::mesh> mesh_;
         std::vector<std::shared_ptr<component>> components_;
     };

@@ -5,7 +5,7 @@
 #include "entity.hpp"
 
 namespace laf {
-    unsigned int entity::count_ = 0;
+    uint32_t entity::count_ = 0;
 
     entity::entity():
     id_(count_++) {
@@ -42,7 +42,7 @@ namespace laf {
         return true;
     }
 
-    bool entity::detach_component(unsigned int id) {
+    bool entity::detach_component(uint32_t id) {
         if (!components_.empty()) {
             auto removed = std::remove_if(components_.begin(), components_.end(), [id](const std::shared_ptr<component>& target) {
                 auto result = target->id_ == id;

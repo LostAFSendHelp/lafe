@@ -5,7 +5,7 @@
 namespace laf {
     class gl_mesh : public mesh {
     public:
-        gl_mesh(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices);
+        gl_mesh(const std::vector<vertex>& vertices, const std::vector<uint32_t>& indices);
         ~gl_mesh();
 
         inline const gl_vao& vao() const { return vao_; }

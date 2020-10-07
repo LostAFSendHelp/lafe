@@ -36,13 +36,13 @@ namespace laf {
     }
 
     template<>
-    void gl_vao::push<unsigned int>(const unsigned int& data) {
+    void gl_vao::push<uint32_t>(const uint32_t& data) {
         if (!i_buffer_.has_value()) return;
         i_buffer_->push(data);
     }
 
     template<>
-    void gl_vao::push<std::vector<unsigned int>>(const std::vector<unsigned int>& data) {
+    void gl_vao::push<std::vector<uint32_t>>(const std::vector<uint32_t>& data) {
         if (!i_buffer_.has_value()) return;
         i_buffer_->push(data, false);
     }

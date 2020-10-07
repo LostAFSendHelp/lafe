@@ -12,14 +12,16 @@ namespace laf {
         static void init();
         static void terminate();
         static void render();
-        static void remove_mesh(unsigned int id);
+        static void remove_mesh(uint32_t id);
         static void make_camera_current(const std::shared_ptr<camera>& camera);
         static void light_color(const glm::vec3& color);
+        static void ambient(float strength);
 
         static glm::vec3 light_color();
+        float ambient();
 
-        static std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices);
-        static std::shared_ptr<mesh> gen_mesh(const std::pair<std::vector<vertex>, std::vector<unsigned int>>& data);
+        static std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices, const std::vector<uint32_t>& indices);
+        static std::shared_ptr<mesh> gen_mesh(const std::pair<std::vector<vertex>, std::vector<uint32_t>>& data);
 
     private:
         static std::unique_ptr<renderer> renderer_;

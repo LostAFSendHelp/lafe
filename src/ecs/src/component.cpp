@@ -6,7 +6,7 @@
 #include "entity.hpp"
 
 namespace laf {
-    unsigned int component::count_ = 0;
+    uint32_t component::count_ = 0;
 
     component::component():
     id_(count_++) {

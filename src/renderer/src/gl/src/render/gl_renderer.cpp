@@ -27,6 +27,7 @@ namespace laf {
             _program.use();
             _program.set_uniform("u_model", _mesh->model());
             _program.set_uniform("u_light_color", light_color_);
+            _program.set_uniform("u_ambient", ambient_);
             _vao.bind();
             glDrawElements(GL_TRIANGLES, _vao.index_count(), GL_UNSIGNED_INT, nullptr);
             _vao.unbind();

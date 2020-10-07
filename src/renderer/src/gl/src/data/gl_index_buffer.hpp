@@ -9,12 +9,12 @@ namespace laf {
         ~gl_index_buffer();
 
         void update_data() const override;
-        void push(unsigned int index);
-        void push(const std::vector<unsigned int>& indices, bool clear);
+        void push(uint32_t index);
+        void push(const std::vector<uint32_t>& indices, bool clear);
 
-        inline unsigned int count() const { return indices_.size(); }
+        inline uint32_t count() const { return indices_.size(); }
 
     private:
-        std::vector<unsigned int> indices_;
+        std::vector<uint32_t> indices_;
     };
 };

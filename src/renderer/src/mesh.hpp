@@ -5,7 +5,7 @@
 namespace laf {
     class mesh {
     public:
-        const unsigned int id_;
+        const uint32_t id_;
         bool is_light_source_; // currently only means the mesh's color is rendered as-is
 
         mesh();
@@ -18,10 +18,10 @@ namespace laf {
         inline const glm::mat4& translation() const { return translation_; }
         inline glm::mat4 model() const { return translation_ * rotation_; }
 
-        inline static unsigned int count() { return count_; }
+        inline static uint32_t count() { return count_; }
 
     private:
-        static unsigned int count_;
+        static uint32_t count_;
         glm::mat4 rotation_{ 1.0f };
         glm::mat4 translation_{ 1.0f };
     };

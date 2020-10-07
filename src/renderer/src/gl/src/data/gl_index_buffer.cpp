@@ -12,14 +12,14 @@ namespace laf {
 
     void gl_index_buffer::update_data() const {
         bind();
-        glBufferData(type, sizeof(unsigned int) * indices_.size(), &indices_[0], GL_STATIC_DRAW);
+        glBufferData(type, sizeof(uint32_t) * indices_.size(), &indices_[0], GL_STATIC_DRAW);
     }
 
-    void gl_index_buffer::push(unsigned int index) {
+    void gl_index_buffer::push(uint32_t index) {
         indices_.push_back(index);
     }
 
-    void gl_index_buffer::push(const std::vector<unsigned int>& indices, bool clear) {
+    void gl_index_buffer::push(const std::vector<uint32_t>& indices, bool clear) {
         if (clear) {
             indices_ = indices;
         } else {

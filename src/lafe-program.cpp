@@ -19,8 +19,9 @@ int main() {
     laf::render_manager::init<laf::gl_renderer>();
     laf::render_manager::make_camera_current(_camera);
 
-    glm::vec3 _color{ 1.0f, .7f, .0f };
-    // auto _sphere_mesh = laf::render_manager::gen_mesh(laf::geometry::gen_sample_sphere(.25f, 40, 60, _color));
+    const glm::vec3 COLOR{ 1.0f, .7f, .0f };
+    const float AMBIENT = .2f;
+    // auto _sphere_mesh = laf::render_manager::gen_mesh(laf::geometry::gen_sample_sphere(.25f, 40, 60, COLOR));
     // auto _sphere = std::make_shared<laf::entity>();
     // _sphere->add_mesh(_sphere_mesh);
     // _sphere->mesh()->translate({ -.5f, .0f, .0f });
@@ -33,7 +34,8 @@ int main() {
     _cube->attach_component(_cube_movement);
     // _cube->mesh()->translate({ .5f, .0f, .0f });
 
-    laf::render_manager::light_color(_color);
+    laf::render_manager::light_color(COLOR);
+    laf::render_manager::ambient(AMBIENT);
 
     laf::input_manager::toggle_cursor(false);
     

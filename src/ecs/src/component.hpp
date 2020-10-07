@@ -6,7 +6,7 @@ namespace laf {
     class entity;
     class component {
     public:
-        const unsigned int id_;
+        const uint32_t id_;
 
         virtual ~component();
 
@@ -64,7 +64,7 @@ namespace laf {
         component();
 
     private:
-        static unsigned int count_;
+        static uint32_t count_;
         std::unique_ptr<entity> entity_;
     };
 

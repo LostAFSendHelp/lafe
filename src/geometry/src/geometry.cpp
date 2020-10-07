@@ -6,7 +6,7 @@
 #include "geometry.hpp"
 
 namespace laf {
-    std::pair<std::vector<vertex>, std::vector<unsigned int>> geometry::gen_sample_cube(float edge) {
+    std::pair<std::vector<vertex>, std::vector<uint32_t>> geometry::gen_sample_cube(float edge) {
         #ifdef __DEBUG__
             std::cout << "CALLING " << __func__ << std::endl;
         #endif
@@ -27,7 +27,7 @@ namespace laf {
             {{-_abs_location, -_abs_location, -_abs_location }, { 0.0f, 1.0f, 0.0f }}     // BLB
         };
 
-        std::vector<unsigned int> indices {
+        std::vector<uint32_t> indices {
             // front
             0, 1, 2,
             2, 3, 0,
@@ -51,17 +51,17 @@ namespace laf {
         return { vertices, indices };
     }
 
-    std::pair<std::vector<vertex>, std::vector<unsigned int>> geometry::gen_sample_sphere(float radius, unsigned int sectors, unsigned int stacks, const glm::vec3& color) {
+    std::pair<std::vector<vertex>, std::vector<uint32_t>> geometry::gen_sample_sphere(float radius, uint32_t sectors, uint32_t stacks, const glm::vec3& color) {
         #ifdef __DEBUG__
             std::cout << "CALLING " << __func__ << std::endl;
         #endif
 
         // clamp inputs
-        const unsigned int MIN_SECTORS = 3;
-        const unsigned int MAX_SECTORS = 100;
+        const uint32_t MIN_SECTORS = 3;
+        const uint32_t MAX_SECTORS = 100;
 
-        const unsigned int MIN_STACKS = 6;
-        const unsigned int MAX_STACKS = 100;
+        const uint32_t MIN_STACKS = 6;
+        const uint32_t MAX_STACKS = 100;
 
         const float MIN_RADIUS = .1f;
         const float MAX_RADIUS = 1.0f;
@@ -71,7 +71,7 @@ namespace laf {
         auto _radius = glm::clamp(radius, MIN_RADIUS, MAX_RADIUS);
 
         std::vector<vertex> _vertices{ };
-        std::vector<unsigned int> _indices{ };
+        std::vector<uint32_t> _indices{ };
 
         // north pole
         _vertices.push_back({
@@ -79,14 +79,14 @@ namespace laf {
             color
         });
 
-        for (unsigned int _cur_sector = 1; _cur_sector < _sectors; ++_cur_sector) {
+        for (uint32_t _cur_sector = 1; _cur_sector < _sectors; ++_cur_sector) {
             auto _roll = glm::half_pi<float>() - glm::pi<float>() * ((float)_cur_sector / (float)_sectors); // drawing top-down
             auto _y = _radius * glm::sin(_roll);
 
             auto _top_anchor = (_cur_sector - 1) * _stacks + 1;
             auto _bottom_anchor = _top_anchor + _stacks;
 
-            for (unsigned int _cur_stack = 0; _cur_stack < _stacks; ++_cur_stack, ++_top_anchor, ++_bottom_anchor) {
+            for (uint32_t _cur_stack = 0; _cur_stack < _stacks; ++_cur_stack, ++_top_anchor, ++_bottom_anchor) {
                 
                 // add vertex
                 auto _yaw = glm::pi<float>() * 2.0f * ((float)_cur_stack / (float)_stacks);

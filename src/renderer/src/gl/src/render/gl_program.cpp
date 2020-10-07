@@ -117,4 +117,24 @@ namespace laf {
 
         glUniform3fv(_location, 1, glm::value_ptr(data));
     }
+
+    template<>
+    void gl_program::set_uniform<float>(const std::string& name, const float& data) {
+        auto _result = uniforms_.find(name);
+        GLint _location = -1;
+        
+        if (_result == uniforms_.end()) {
+            _location = glGetUniformLocation(id_, name.c_str());
+            if (_location > -1) {
+                uniforms_[name] = _location;
+            } else {
+                // TODO: silently abort if no such uniform found, include this in documentation
+                return;
+            }
+        } else {
+            _location = _result->second;
+        }
+
+        glUniform1f(_location, data);
+    }
 }
