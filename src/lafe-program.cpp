@@ -21,7 +21,7 @@ int main() {
 
     const glm::vec3 COLOR{ 1.0f, .7f, .0f };
     const float AMBIENT = .2f;
-    // auto _sphere_mesh = laf::render_manager::gen_mesh(laf::geometry::gen_sample_sphere(.25f, 40, 60, COLOR));
+    auto _sphere_mesh = laf::render_manager::gen_mesh(laf::geometry::gen_sample_sphere(.25f, 40, 60, COLOR));
     // auto _sphere = std::make_shared<laf::entity>();
     // _sphere->add_mesh(_sphere_mesh);
     // _sphere->mesh()->translate({ -.5f, .0f, .0f });

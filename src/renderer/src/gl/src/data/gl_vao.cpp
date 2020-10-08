@@ -19,8 +19,8 @@ namespace laf {
 
     void gl_vao::update_data() const {
         bind();
-        a_buffer_->update_data();
-        i_buffer_->update_data();
+        if (a_buffer_.has_value()) a_buffer_->update_data();
+        if (i_buffer_.has_value()) i_buffer_->update_data();
     }
 
     template<>
