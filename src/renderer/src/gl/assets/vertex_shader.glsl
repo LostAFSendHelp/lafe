@@ -15,5 +15,5 @@ void main() {
     vec4 v_position = u_model * vec4(in_position, 1.0f);
     gl_Position = u_projection * u_view * v_position;
     v_fragment_position = vec3(v_position);
-    v_normal = in_normal;
+    v_normal = vec3(u_model * vec4(in_normal, 1.0f));
 }
