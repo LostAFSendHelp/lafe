@@ -10,7 +10,7 @@ namespace laf {
 
     }
 
-    void gl_index_buffer::update_data() const {
+    void gl_index_buffer::update_data() {
         bind();
         glBufferData(type, sizeof(uint32_t) * indices_.size(), &indices_[0], GL_STATIC_DRAW);
     }

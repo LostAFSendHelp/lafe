@@ -5,7 +5,7 @@ namespace laf {
         return 3;
     }
 
-    std::size_t vertex::size_color() {
+    std::size_t vertex::size_normal() {
         return 3;
     }
 

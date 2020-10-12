@@ -8,11 +8,11 @@ namespace laf {
         gl_index_buffer();
         ~gl_index_buffer();
 
-        void update_data() const override;
+        void update_data() override;
         void push(uint32_t index);
         void push(const std::vector<uint32_t>& indices, bool clear);
 
-        inline uint32_t count() const { return indices_.size(); }
+        inline uint32_t index_count() const { return indices_.size(); }
 
     private:
         std::vector<uint32_t> indices_;

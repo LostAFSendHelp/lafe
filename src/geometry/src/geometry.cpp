@@ -6,7 +6,7 @@
 #include "geometry.hpp"
 
 namespace laf {
-    std::pair<std::vector<vertex>, std::vector<uint32_t>> geometry::gen_sample_cube(float edge) {
+    std::vector<vertex> geometry::gen_sample_cube(float edge) {
         #ifdef __DEBUG__
             std::cout << "CALLING " << __func__ << std::endl;
         #endif
@@ -15,17 +15,49 @@ namespace laf {
         const auto MAX = 1.0f;
         auto _abs_location = glm::clamp(edge, MIN, MAX) / 2;
 
-        std::vector<laf::vertex> vertices {
-            {{-_abs_location, _abs_location, _abs_location }, { 0.0f, 0.0f, 1.0f }},     // TLF
-            {{ _abs_location, _abs_location, _abs_location }, { 1.0f, 0.0f, 0.0f }},     // TRF
-            {{ _abs_location, -_abs_location, _abs_location }, { 1.0f, 1.0f, 0.0f }},     // BRF
-            {{-_abs_location, -_abs_location, _abs_location }, { 0.0f, 1.0f, 0.0f }},     // BLF
+        std::vector<laf::vertex> _vertices {
+            { { -_abs_location, -_abs_location, -_abs_location }, { 0.0f,  0.0f, -1.0f } },
+            { { _abs_location, -_abs_location, -_abs_location }, { 0.0f,  0.0f, -1.0f } },
+            { { _abs_location,  _abs_location, -_abs_location }, { 0.0f,  0.0f, -1.0f } }, 
+            { { _abs_location,  _abs_location, -_abs_location }, { 0.0f,  0.0f, -1.0f } }, 
+            { { -_abs_location,  _abs_location, -_abs_location }, { 0.0f,  0.0f, -1.0f } }, 
+            { { -_abs_location, -_abs_location, -_abs_location }, { 0.0f,  0.0f, -1.0f } }, 
 
-            {{-_abs_location, _abs_location, -_abs_location }, { 0.0f, 0.0f, 1.0f }},    // TLB
-            {{ _abs_location, _abs_location, -_abs_location }, { 1.0f, 0.0f, 0.0f }},    // TRB
-            {{ _abs_location, -_abs_location, -_abs_location }, { 1.0f, 1.0f, 0.0f }},    // BRB
-            {{-_abs_location, -_abs_location, -_abs_location }, { 0.0f, 1.0f, 0.0f }}     // BLB
-        };
+            { { -_abs_location, -_abs_location,  _abs_location }, { 0.0f,  0.0f, 1.0f } },
+            { { _abs_location, -_abs_location,  _abs_location }, { 0.0f,  0.0f, 1.0f } },
+            { { _abs_location,  _abs_location,  _abs_location }, { 0.0f,  0.0f, 1.0f } },
+            { { _abs_location,  _abs_location,  _abs_location }, { 0.0f,  0.0f, 1.0f } },
+            { { -_abs_location,  _abs_location,  _abs_location }, { 0.0f,  0.0f, 1.0f } },
+            { { -_abs_location, -_abs_location,  _abs_location }, { 0.0f,  0.0f, 1.0f } },
+
+            { { -_abs_location,  _abs_location,  _abs_location }, { -1.0f,  0.0f,  0.0f } },
+            { { -_abs_location,  _abs_location, -_abs_location }, { -1.0f,  0.0f,  0.0f } },
+            { { -_abs_location, -_abs_location, -_abs_location }, { -1.0f,  0.0f,  0.0f } },
+            { { -_abs_location, -_abs_location, -_abs_location }, { -1.0f,  0.0f,  0.0f } },
+            { { -_abs_location, -_abs_location,  _abs_location }, { -1.0f,  0.0f,  0.0f } },
+            { { -_abs_location,  _abs_location,  _abs_location }, { -1.0f,  0.0f,  0.0f } },
+
+            { { _abs_location,  _abs_location,  _abs_location }, { 1.0f,  0.0f,  0.0f } },
+            { { _abs_location,  _abs_location, -_abs_location }, { 1.0f,  0.0f,  0.0f } },
+            { { _abs_location, -_abs_location, -_abs_location }, { 1.0f,  0.0f,  0.0f } },
+            { { _abs_location, -_abs_location, -_abs_location }, { 1.0f,  0.0f,  0.0f } },
+            { { _abs_location, -_abs_location,  _abs_location }, { 1.0f,  0.0f,  0.0f } },
+            { { _abs_location,  _abs_location,  _abs_location }, { 1.0f,  0.0f,  0.0f } },
+
+            { { -_abs_location, -_abs_location, -_abs_location }, { 0.0f, -1.0f,  0.0f } },
+            { { _abs_location, -_abs_location, -_abs_location }, { 0.0f, -1.0f,  0.0f } },
+            { { _abs_location, -_abs_location,  _abs_location }, { 0.0f, -1.0f,  0.0f } },
+            { { _abs_location, -_abs_location,  _abs_location }, { 0.0f, -1.0f,  0.0f } },
+            { { -_abs_location, -_abs_location,  _abs_location }, { 0.0f, -1.0f,  0.0f } },
+            { { -_abs_location, -_abs_location, -_abs_location }, { 0.0f, -1.0f,  0.0f } },
+
+            { { -_abs_location,  _abs_location, -_abs_location }, { 0.0f,  1.0f,  0.0f } },
+            { { _abs_location,  _abs_location, -_abs_location }, { 0.0f,  1.0f,  0.0f } },
+            { { _abs_location,  _abs_location,  _abs_location }, { 0.0f,  1.0f,  0.0f } },
+            { { _abs_location,  _abs_location,  _abs_location }, { 0.0f,  1.0f,  0.0f } },
+            { { -_abs_location,  _abs_location,  _abs_location }, { 0.0f,  1.0f,  0.0f } },
+            { { -_abs_location,  _abs_location, -_abs_location }, { 0.0f,  1.0f,  0.0f } }
+        };;
 
         std::vector<uint32_t> indices {
             // front
@@ -48,10 +80,10 @@ namespace laf {
             6, 7, 3
         };
 
-        return { vertices, indices };
+        return _vertices;
     }
 
-    std::pair<std::vector<vertex>, std::vector<uint32_t>> geometry::gen_sample_sphere(float radius, uint32_t sectors, uint32_t stacks, const glm::vec3& color) {
+    std::vector<vertex> geometry::gen_sample_sphere(float radius, uint32_t sectors, uint32_t stacks, const glm::vec3& color) {
         #ifdef __DEBUG__
             std::cout << "CALLING " << __func__ << std::endl;
         #endif
@@ -76,7 +108,7 @@ namespace laf {
         // north pole
         _vertices.push_back({
             { .0f, _radius, .0f },
-            color
+            { .0f, _radius, .0f }
         });
 
         for (uint32_t _cur_sector = 1; _cur_sector < _sectors; ++_cur_sector) {
@@ -95,7 +127,7 @@ namespace laf {
 
                 _vertices.push_back({
                     { _x, _y, _z, },
-                    color
+                    { _x, _y, _z, }
                 });
 
                 // add indices
@@ -127,13 +159,13 @@ namespace laf {
         // south pole
         _vertices.push_back({
             { .0f, -_radius, .0f },
-            color
+            { .0f, -_radius, .0f }
         });
 
         #ifdef __DEBUG__
             std::cout << "Vertices count " << _vertices.size() << std::endl;
         #endif
 
-        return { _vertices, _indices };
+        return _vertices;
     }
 }

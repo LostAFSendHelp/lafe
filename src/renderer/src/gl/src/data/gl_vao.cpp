@@ -17,7 +17,7 @@ namespace laf {
         glBindVertexArray(0);
     }
 
-    void gl_vao::update_data() const {
+    void gl_vao::update_data() {
         bind();
         if (a_buffer_.has_value()) a_buffer_->update_data();
         if (i_buffer_.has_value()) i_buffer_->update_data();

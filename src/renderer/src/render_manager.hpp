@@ -20,8 +20,7 @@ namespace laf {
         static glm::vec3 light_color();
         float ambient();
 
-        static std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices, const std::vector<uint32_t>& indices);
-        static std::shared_ptr<mesh> gen_mesh(const std::pair<std::vector<vertex>, std::vector<uint32_t>>& data);
+        static std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices);
 
     private:
         static std::unique_ptr<renderer> renderer_;

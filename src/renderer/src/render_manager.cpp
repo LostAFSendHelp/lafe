@@ -57,13 +57,8 @@ namespace laf {
         return renderer_->ambient_;
     }
 
-    std::shared_ptr<mesh> render_manager::gen_mesh(const std::vector<vertex>& vertices, const std::vector<uint32_t>& indices) {
+    std::shared_ptr<mesh> render_manager::gen_mesh(const std::vector<vertex>& vertices) {
         _ASSERT(renderer_ != nullptr);
-        return renderer_->gen_mesh(vertices, indices);
-    }
-
-    std::shared_ptr<mesh> render_manager::gen_mesh(const std::pair<std::vector<vertex>, std::vector<uint32_t>>& data) {
-        _ASSERT(renderer_ != nullptr);
-        return renderer_->gen_mesh(data.first, data.second);
+        return renderer_->gen_mesh(vertices);
     }
 }

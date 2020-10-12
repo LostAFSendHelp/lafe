@@ -9,11 +9,14 @@ namespace laf {
         gl_array_buffer();
         ~gl_array_buffer();
 
-        void update_data() const override;
+        void update_data() override;
         void push(const vertex& vertex);
         void push(const std::vector<vertex>& vertices, bool clear);
 
+        inline uint32_t vertex_count() const { return vertex_count_; }
+
     private:
         std::vector<float> vertices_;
+        uint32_t vertex_count_;
     };
 };

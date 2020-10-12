@@ -10,10 +10,10 @@ namespace laf {
         void bind() const;
         void unbind() const;
 
-        virtual void update_data() const = 0;
+        virtual void update_data() = 0;
 
         GLuint id() const;
-    
+
     private:
         GLuint id_;
 

@@ -11,7 +11,7 @@ namespace laf {
 
         void bind() const;
         void unbind() const;
-        void update_data() const;
+        void update_data();
 
         template<typename T>
         void gen_buffer();
@@ -19,7 +19,8 @@ namespace laf {
         void push(const T& data);
 
         inline GLuint id() const { return id_; }
-        inline uint32_t index_count() const { return i_buffer_->count(); }
+        inline uint32_t index_count() const { return i_buffer_->index_count(); }
+        inline uint32_t vertex_count() const { return a_buffer_->vertex_count(); }
 
     private:
         GLuint id_;

@@ -7,11 +7,11 @@ namespace laf {
     basic_program_(),
     light_source_program_() {
         // TODO: change logic
-        basic_program_.gen_shader(GL_VERTEX_SHADER, "src/renderer/src/gl/assets/vertex_shader.glsl");
+        basic_program_.gen_shader(GL_VERTEX_SHADER, "src/renderer/src/gl/assets/vertex_shader_indexed.glsl");
         basic_program_.gen_shader(GL_FRAGMENT_SHADER, "src/renderer/src/gl/assets/fragment_shader_basic.glsl");
         basic_program_.link();
 
-        light_source_program_.gen_shader(GL_VERTEX_SHADER, "src/renderer/src/gl/assets/vertex_shader.glsl");
+        light_source_program_.gen_shader(GL_VERTEX_SHADER, "src/renderer/src/gl/assets/vertex_shader_indexed.glsl");
         light_source_program_.gen_shader(GL_FRAGMENT_SHADER, "src/renderer/src/gl/assets/fragment_shader_light_source.glsl");
         light_source_program_.link();
     }
@@ -28,7 +28,7 @@ namespace laf {
             _program.set_uniform("u_model", _mesh->model());
             _program.set_uniform("u_ambient_color", light_color_ * ambient_);
             _vao.bind();
-            glDrawElements(GL_TRIANGLES, _vao.index_count(), GL_UNSIGNED_INT, nullptr);
+            glDrawArrays(GL_TRIANGLES, 0, _vao.vertex_count());
             _vao.unbind();
 
             _program.set_uniform("u_projection", camera->projection());
@@ -44,8 +44,8 @@ namespace laf {
         meshes_.erase(_removed, meshes_.end());
     }
 
-    std::shared_ptr<mesh> gl_renderer::gen_mesh(const std::vector<vertex>& vertices, const std::vector<unsigned int>& indices) {
-        std::shared_ptr<mesh> _mesh{ new gl_mesh{ vertices, indices } };
+    std::shared_ptr<mesh> gl_renderer::gen_mesh(const std::vector<vertex>& vertices) {
+        std::shared_ptr<mesh> _mesh{ new gl_mesh{ vertices } };
         meshes_.push_back(std::static_pointer_cast<gl_mesh>(_mesh));
 
         return _mesh;

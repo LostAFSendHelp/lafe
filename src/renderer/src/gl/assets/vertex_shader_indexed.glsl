@@ -1,7 +1,7 @@
 #version 330 core
 
 layout (location = 0) in vec3 in_position;
-layout (location = 1) in vec3 in_color;
+layout (location = 1) in vec3 in_normal;
 
 uniform mat4 u_model;
 uniform mat4 u_projection;
@@ -15,6 +15,5 @@ void main() {
     vec4 v_position = u_model * vec4(in_position, 1.0f);
     gl_Position = u_projection * u_view * v_position;
     v_fragment_position = vec3(v_position);
-    v_color = in_color;
-    v_normal = in_position;
+    v_normal = in_normal;
 }

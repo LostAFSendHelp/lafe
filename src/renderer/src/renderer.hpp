@@ -10,7 +10,7 @@ namespace laf {
         virtual ~renderer();
 
         virtual void render(camera* camera) = 0;
-        virtual std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices, const std::vector<uint32_t>& indices) = 0;
+        virtual std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices) = 0;
         virtual void remove_mesh(uint32_t id) = 0;
 
         friend class render_manager;

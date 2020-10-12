@@ -13,7 +13,7 @@ namespace laf {
 
         void render(camera* camera) override;
         void remove_mesh(uint32_t id) override;
-        std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices, const std::vector<uint32_t>& indices) override;
+        std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices) override;
     
     private:
         // currently using hard coded programs
