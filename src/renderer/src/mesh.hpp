@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include <vertex.hpp>
+#include "transform.hpp"
 
 namespace laf {
     class mesh {
@@ -8,89 +10,54 @@ namespace laf {
         
         /// Id of the mesh.
         const uint32_t id_;
-
-
-
-
         /// Currently only means the mesh's color is rendered as-is.
         bool is_light_source_;
-
+        /// The transform associated with the mesh.
+        std::shared_ptr<transform> transform_;
 
 
 
         /**
-         * @brief Constructs a new mesh object
-         * 
-         * @param is_indexed Whether the mesh should be index-drawn.
+         * @brief Constructs a new mesh object.
          */
         mesh();
 
 
 
         /**
-         * @brief Destroys the mesh object
+         * @brief Destroys the mesh object.
          */
         virtual ~mesh();
 
 
 
         /**
-         * @brief Rotates the mesh, applied before translation, if any
+         * @brief number of meshes that have been INITIALIZED.
          * 
-         * @param radians Rotation angle in radians
-         * @param axis The axis to rotate around
-         * @param normalized Whether the axis should be normalized before the rotation
-         */
-        virtual void rotate(float radians, const glm::vec3& axis, bool normalized);
-
-
-
-        /**
-         * @brief The mesh's translation into world space coordinates.
-         * 
-         * @param translation The incremental translation to make to the mesh.
-         */
-        virtual void translate(const glm::vec3& translation);
-
-
-
-        /**
-         * @brief The current rotation of the mesh. Initialized to 1.0f
-         * 
-         * @return const glm::mat4& rotation
-         */
-        inline const glm::mat4& rotation() const { return rotation_; }
-
-
-
-        /**
-         * @brief The current translation of the mesh. Initialized to 1.0f
-         * 
-         * @return const glm::mat4& translation
-         */
-        inline const glm::mat4& translation() const { return translation_; }
-
-
-
-        /**
-         * @brief The model matrix to represent the mesh in world space
-         * 
-         * @return glm::mat4 model
-         */
-        inline glm::mat4 model() const { return translation_ * rotation_; }
-
-
-
-        /**
-         * @brief number of meshes that have been INITIALIZED
-         * 
-         * @return uint32_t count
+         * @return uint32_t
          */
         inline static uint32_t count() { return count_; }
 
+
+
+        /**
+         * @brief Whether the mesh will be rendered. Note that this does not equal the last value passed to toggle_render(bool). E.g: when the mesh is toggled to be rendered, but has no actual vertex data, it won't be rendered then.
+         * 
+         * @return TRUE if the mesh will be rendered.
+         * @return FALSE otherwise.
+         */
+        virtual bool is_hidden() const = 0;
+
+
+
+        /**
+         * @brief Toggle whether the mesh should be rendered or hidden. Note that the mesh still won't get rendered if it contains no actual vertex data, which is indicated by is_hidden().
+         * 
+         * @param on Mesh marked as should be rendered if set to TRUE
+         */
+        virtual void toggle_render(bool on) = 0;
+
     private:
         static uint32_t count_;
-        glm::mat4 rotation_{ 1.0f };
-        glm::mat4 translation_{ 1.0f };
     };
 };

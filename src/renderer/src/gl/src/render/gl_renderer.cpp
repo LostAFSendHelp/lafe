@@ -22,10 +22,13 @@ namespace laf {
 
     void gl_renderer::render(camera* camera) {
         for (const auto& _mesh : meshes_) {
+            
             const auto& _vao = _mesh->vao();
+            if (!_vao.should_render()) continue;
+
             auto& _program = (_mesh->is_light_source_) ? light_source_program_ : basic_program_;
             _program.use();
-            _program.set_uniform("u_model", _mesh->model());
+            _program.set_uniform("u_model", _mesh->transform_->model());
             _program.set_uniform("u_ambient_color", light_color_ * ambient_);
             _vao.bind();
             glDrawArrays(GL_TRIANGLES, 0, _vao.vertex_count());

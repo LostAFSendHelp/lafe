@@ -1,7 +1,8 @@
 #include "gl_vao.hpp"
 
 namespace laf {
-    gl_vao::gl_vao() {
+    gl_vao::gl_vao():
+    is_hidden_(false) {
         glGenVertexArrays(1, &id_);
     }
 

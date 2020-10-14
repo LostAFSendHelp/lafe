@@ -16,14 +16,14 @@ namespace laf {
         bool detach_component(const std::shared_ptr<component>& target);
         bool detach_component(uint32_t id);
         void flush_components();
-        
+
         template<typename T>
         std::shared_ptr<T> get_component() const;
 
         void awake();
         void update();
         void add_mesh(const std::shared_ptr<mesh>& mesh);
-        
+
         inline std::shared_ptr<mesh> mesh() const {
             return mesh_;
         }

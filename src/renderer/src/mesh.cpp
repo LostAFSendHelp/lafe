@@ -6,21 +6,12 @@ namespace laf {
 
     mesh::mesh():
     id_(count_++),
-    is_light_source_(false) {
+    is_light_source_(false),
+    transform_(new transform{ }) {
         
     }
 
     mesh::~mesh() {
- 
-    }
 
-    void mesh::rotate(float radians, const glm::vec3& axis, bool normalized) {
-        rotation_ = glm::rotate(rotation_,
-                                radians,
-                                normalized ? glm::normalize(axis) : axis);
-    }
-
-    void mesh::translate(const glm::vec3& translation) {
-        translation_ = glm::translate(translation_, translation);
     }
 }

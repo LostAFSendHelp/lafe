@@ -9,6 +9,8 @@ add_library(
     src/render_manager.cpp
     src/camera.hpp
     src/camera.cpp
+    src/transform.hpp
+    src/transform.cpp
 
     src/gl/src/data/gl_array_buffer.hpp
     src/gl/src/data/gl_array_buffer.cpp
