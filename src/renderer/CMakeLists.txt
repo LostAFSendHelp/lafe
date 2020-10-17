@@ -11,6 +11,8 @@ add_library(
     src/camera.cpp
     src/transform.hpp
     src/transform.cpp
+    src/light_source.hpp
+    src/light_source.cpp
 
     src/gl/src/data/gl_array_buffer.hpp
     src/gl/src/data/gl_array_buffer.cpp

@@ -17,25 +17,15 @@ int main() {
     
     laf::input_manager::init<laf::gl_input>(_window);
     laf::render_manager::init<laf::gl_renderer>();
-    laf::render_manager::make_camera_current(_camera);
+    auto _renderer = laf::render_manager::get_instance();
+    _renderer->make_camera_current(_camera);
 
-    const glm::vec3 COLOR{ 1.0f, .7f, .0f };
-    const float AMBIENT = .2f;
-    // auto _sphere_mesh = laf::render_manager::gen_mesh(laf::geometry::gen_sample_sphere(.25f, 40, 60, COLOR));
-    // auto _sphere = std::make_shared<laf::entity>();
-    // _sphere->add_mesh(_sphere_mesh);
-    // _sphere->mesh()->translate({ -.5f, .0f, .0f });
-    // _sphere->mesh()->is_light_source_ = true;
-
-    auto _cube_mesh = laf::render_manager::gen_mesh(laf::geometry::gen_sample_cube(.5f));
+    auto _cube_mesh = _renderer->gen_mesh(laf::geometry::gen_sample_cube(.5f));
+    _cube_mesh->overlay_color_ = glm::vec3{ .5f, .7f, .0f };
     auto _cube = std::make_shared<laf::entity>();
     _cube->add_mesh(_cube_mesh);
     std::shared_ptr<laf::component> _cube_movement = std::make_shared<laf::movement>();
     _cube->attach_component(_cube_movement);
-    // _cube->mesh()->translate({ .5f, .0f, .0f });
-
-    laf::render_manager::light_color(COLOR);
-    laf::render_manager::ambient(AMBIENT);
 
     laf::input_manager::toggle_cursor(false);
     
@@ -48,7 +38,6 @@ int main() {
 
         // TODO: this is for testing only, remove when done
         {
-            // _sphere->update();
             _cube->update();
 
             static const float TURN_RATE = .0004f;
@@ -75,10 +64,10 @@ int main() {
         }
 
         
-        laf::render_manager::render();
+        _renderer->render();
     }
 
-    laf::render_manager::terminate();
+    _renderer->terminate();
     _window->terminate();
 
     return 0;

@@ -14,6 +14,8 @@ namespace laf {
         bool is_light_source_;
         /// The transform associated with the mesh.
         std::shared_ptr<transform> transform_;
+        /// The overlay color on the surface of the mesh.
+        glm::vec3 overlay_color_;
 
 
 

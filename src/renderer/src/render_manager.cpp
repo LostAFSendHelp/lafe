@@ -1,29 +1,54 @@
+#ifdef __DEBUG__
+    #include <iostream>
+#endif
+
 #include "render_manager.hpp"
 
 namespace laf {
-    std::unique_ptr<renderer> render_manager::renderer_{ nullptr };
-    std::shared_ptr<camera> render_manager::camera_{ nullptr };
+    std::shared_ptr<render_manager> render_manager::main_{ nullptr };
+
+    render_manager::render_manager():
+    renderer_(),
+    camera_(),
+    light_source_() {
+
+    }
 
     render_manager::~render_manager() {
 
     }
 
+    std::shared_ptr<render_manager> render_manager::get_instance() {
+        _ASSERT(main_ != nullptr);
+        return main_;
+    }
+
     template<>
     void render_manager::init<gl_renderer>() {
-        _ASSERT(renderer_ == nullptr);
-        renderer_ = std::unique_ptr<renderer>{ new gl_renderer() };
+        if (main_ != nullptr) return;
+        main_ = std::make_shared<render_manager>();
+        main_->renderer_ = std::unique_ptr<renderer>{ new gl_renderer() };
+        main_->light_source_ = std::make_shared<light_source>();
+
+        #ifdef __DEBUG__
+            std::cout << "RENDERER INITIALZIED" << std::endl;
+        #endif
     }
 
     void render_manager::terminate() {
-        renderer_= nullptr;
-        camera_ = nullptr;
+        _ASSERT(main_ != nullptr);
+        main_->renderer_ = nullptr;
+        main_->camera_ = nullptr;
+        main_->light_source_ = nullptr;
 
-        _ASSERT(true);
+        #ifdef __DEBUG__
+            std::cout << "RENDERER TERMINATED" << std::endl;
+        #endif
     }
 
     void render_manager::render() {
-        _ASSERT(renderer_ != nullptr && camera_ != nullptr);
-        renderer_->render(camera_.get());
+        _ASSERT(renderer_ != nullptr && camera_ != nullptr && light_source_ != nullptr);
+        renderer_->render(camera_, light_source_);
     }
 
     void render_manager::remove_mesh(uint32_t id) {
@@ -35,16 +60,8 @@ namespace laf {
         camera_ = camera;
     }
 
-    void render_manager::light_color(const glm::vec3& color) {
-        _ASSERT(renderer_ != nullptr);
-        renderer_->light_color_ = color;
-    }
-
-    void render_manager::ambient(float strength) {
-        _ASSERT(renderer_ != nullptr);
-        const float AMBIENT_MIN = .1f;
-        const float AMBIENT_MAX = 1.0f;
-        renderer_->ambient_ = glm::clamp(strength, AMBIENT_MIN, AMBIENT_MAX);
+    void render_manager::make_light_source_current(const std::shared_ptr<light_source>& source) {
+        light_source_ = source;
     }
 
     glm::vec3 render_manager::light_color() {

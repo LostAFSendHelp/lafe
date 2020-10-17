@@ -11,7 +11,7 @@ namespace laf {
         gl_renderer();
         ~gl_renderer();
 
-        void render(camera* camera) override;
+        void render(const std::shared_ptr<camera>& camera, const std::shared_ptr<light_source>& source) override;
         void remove_mesh(uint32_t id) override;
         std::shared_ptr<mesh> gen_mesh(const std::vector<vertex>& vertices) override;
     
