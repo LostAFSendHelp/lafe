@@ -1,29 +1,27 @@
 #include <input_manager.hpp>
-#include "movement.hpp"
+#include "translation.hpp"
 
 namespace laf {
-    movement::movement():
+    translation::translation():
     component() {
 
     }
 
-    movement::~movement() {
+    translation::~translation() {
 
     }
 
-    void movement::awake() {
+    void translation::awake() {
 
     }
 
-    void movement::update() {
+    void translation::update() {
         if (auto _mesh = this->mesh()) {
             auto _horizontal = input_manager::get_input("leftright");
             auto _vertical = input_manager::get_input("updown");
-            auto _rotation = input_manager::get_input("rotate");
 
             glm::vec3 _translation{ .005f * _horizontal, .0f, -.005f * _vertical };
-            _mesh->transform_->translate(_translation, false);
-            _mesh->transform_->rotate(.005f * _rotation, { .0f, 1.0f, .0f }, false, true);
+            _mesh->transform_->translate(_translation, true);
         }
 
     }

@@ -2,14 +2,13 @@
 #include "../component.hpp"
 
 namespace laf {
-    class movement: public component {
+    class spinning : public component {
     public:
-        movement();
-        ~movement();
+        spinning();
+        ~spinning();
 
         void awake() override;
         void update() override;
-
     private:
     };
 };

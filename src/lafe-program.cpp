@@ -3,7 +3,9 @@
 #include <render_manager.hpp>
 #include <gl_window.hpp>
 #include <entity.hpp>
-#include <derived/movement.hpp>
+#include <derived/translation.hpp>
+#include <derived/rotation.hpp>
+#include <derived/spinning.hpp>
 #include <geometry.hpp>
 #include <memory>
 #include <iostream>
@@ -20,13 +22,20 @@ int main() {
     auto _renderer = laf::render_manager::get_instance();
     _renderer->make_camera_current(_camera);
 
-    auto _cube_mesh = _renderer->gen_mesh(laf::geometry::gen_sample_cube(.5f));
-    _cube_mesh->overlay_color_ = glm::vec3{ .5f, .7f, .0f };
-    auto _cube = std::make_shared<laf::entity>();
-    _cube->add_mesh(_cube_mesh);
-    std::shared_ptr<laf::component> _cube_movement = std::make_shared<laf::movement>();
-    _cube->attach_component(_cube_movement);
+    auto _cube_1 = std::make_shared<laf::entity>();
+    auto _cube_2 = std::make_shared<laf::entity>();
 
+    _cube_1->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.5f)));
+    _cube_1->mesh()->overlay_color_ = glm::vec3{ .8f, .1f, .1f };
+    _cube_1->mesh()->transform_->translate({ .0f, .0f, .0f }, true);
+    _cube_2->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.3f)));
+    _cube_2->mesh()->overlay_color_ = glm::vec3{ .1f, .8f, .1f };
+    _cube_2->mesh()->transform_->translate({ 2.0f, .2f, .0f }, true);
+
+    _cube_1->mesh()->transform_->attach_child(_cube_2->mesh()->transform_);
+    _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::translation{ } });
+    _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::rotation{ } });
+    _cube_2->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });
     laf::input_manager::toggle_cursor(false);
     
     // main loop
@@ -38,7 +47,8 @@ int main() {
 
         // TODO: this is for testing only, remove when done
         {
-            _cube->update();
+            _cube_1->update();
+            _cube_2->update();
 
             static const float TURN_RATE = .0004f;
             auto _front = _camera->front();

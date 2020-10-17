@@ -3,7 +3,7 @@
 #include "input.hpp"
 
 namespace laf {
-    class gl_input: public input {
+    class gl_input : public input {
     public:
         gl_input();
         ~gl_input();

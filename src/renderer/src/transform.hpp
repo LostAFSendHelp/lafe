@@ -55,7 +55,7 @@ namespace laf {
          * 
          * @return glm::mat4 
          */
-        inline glm::mat4 model() const { return transformation() * i_translation_ * i_rotation_; }
+        inline glm::mat4 model() const { return i_translation_ * i_rotation_ * transformation(); }
 
 
 
@@ -82,6 +82,15 @@ namespace laf {
 
 
         /**
+         * @brief Adds a transform as children, meaning all subsequent transformations are applied down the hierarchy.
+         * 
+         * @param child The child transform to add.
+         */
+        void attach_child(const std::shared_ptr<transform>& child);
+
+
+
+        /**
          * @brief Detachs the transform from its current parent, if any. Retains world coordinates. 
          */
         void detach();
@@ -98,15 +107,6 @@ namespace laf {
         glm::mat4 i_translation_;
         glm::mat4 i_rotation_;
         std::vector<std::weak_ptr<transform>> children_;
-
-
-
-        /**
-         * @brief Adds a transform as children, meaning all subsequent transformations are applied down the hierarchy.
-         * 
-         * @param child The child transform to add.
-         */
-        void attach_child(const std::shared_ptr<transform>& child);
 
 
 

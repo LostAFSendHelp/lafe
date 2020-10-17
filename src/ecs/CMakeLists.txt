@@ -8,8 +8,12 @@ add_library(
     src/system.hpp
     src/system.cpp
 
-    src/derived/movement.hpp
-    src/derived/movement.cpp
+    src/derived/translation.hpp
+    src/derived/translation.cpp
+    src/derived/rotation.hpp
+    src/derived/rotation.cpp
+    src/derived/spinning.hpp
+    src/derived/spinning.cpp
 )
 
 target_link_libraries(laf-ecs PUBLIC laf-renderer laf-input)

@@ -39,6 +39,10 @@ namespace laf {
         if (finished) update_children();
     }
 
+    void transform::attach_child(const std::shared_ptr<transform>& child) {
+        children_.push_back(child);
+    }
+
     void transform::detach() {
         translation_ *= i_translation_;
         rotation_ *= i_rotation_;
@@ -69,10 +73,6 @@ namespace laf {
             children_[_idx] = children_.back();
             children_.pop_back();
         }
-    }
-
-    void transform::attach_child(const std::shared_ptr<transform>& child) {
-        children_.push_back(child);
     }
 
     void transform::inherit(const glm::mat4& translation, const glm::mat4& rotation) {
