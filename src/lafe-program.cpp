@@ -6,6 +6,7 @@
 #include <derived/translation.hpp>
 #include <derived/rotation.hpp>
 #include <derived/spinning.hpp>
+#include <derived/cast_light.hpp>
 #include <geometry.hpp>
 #include <memory>
 #include <iostream>
@@ -25,24 +26,39 @@ int main() {
     auto _cube_1 = std::make_shared<laf::entity>();
     auto _cube_2 = std::make_shared<laf::entity>();
     auto _cube_3 = std::make_shared<laf::entity>();
+    auto _center = std::make_shared<laf::entity>();
 
+    _center->add_mesh(_renderer->gen_mesh({ }));
     _cube_1->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.5f)));
     _cube_1->mesh()->overlay_color_ = glm::vec3{ .8f, .1f, .1f };
     _cube_1->mesh()->transform()->translate({ .0f, .0f, .0f }, true);
+
     _cube_2->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.3f)));
     _cube_2->mesh()->overlay_color_ = glm::vec3{ .1f, .8f, .1f };
     _cube_2->mesh()->transform()->translate({ 2.0f, .0f, .0f }, true);
+
     _cube_3->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.16f)));
-    _cube_3->mesh()->overlay_color_ = glm::vec3{ .1f, .1f, .8f };
+    _cube_3->mesh()->overlay_color_ = glm::vec3{ 1.0f, 1.0f, .7f };
     _cube_3->mesh()->transform()->translate({ .0f, .0f, -1.0f }, true);
 
-    _cube_1->mesh()->transform()->attach_child(_cube_2->mesh()->transform());
+    _center->mesh()->transform()->attach_child(_cube_2->mesh()->transform());
     _cube_2->mesh()->transform()->attach_child(_cube_3->mesh()->transform());
+
     _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::translation{ } });
     _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::rotation{ } });
     _cube_2->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });
+    _center->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });
+    _cube_3->attach_component(std::shared_ptr<laf::component>{ new laf::cast_light{ } });
+
+
     laf::input_manager::toggle_cursor(false);
+    _renderer->make_light_source_current(_cube_3->get_component<laf::cast_light>());
     
+    _cube_1->awake();
+    _cube_2->awake();
+    _cube_3->awake();
+    _center->awake();
+
     // main loop
     while(!_window->is_open()) {
         _window->update();
@@ -52,8 +68,10 @@ int main() {
 
         // TODO: this is for testing only, remove when done
         {
+            _center->update();
             _cube_1->update();
             _cube_2->update();
+            _cube_3->update();
 
             static const float TURN_RATE = .0004f;
             auto _front = _camera->front();

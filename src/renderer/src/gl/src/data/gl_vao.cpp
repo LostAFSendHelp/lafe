@@ -2,8 +2,9 @@
 
 namespace laf {
     gl_vao::gl_vao():
-    is_hidden_(false) {
-        glGenVertexArrays(1, &id_);
+    is_hidden_(false),
+    is_generated_(false) {
+
     }
 
     gl_vao::~gl_vao() {
@@ -11,10 +12,15 @@ namespace laf {
     }
 
     void gl_vao::bind() const {
+        if (!is_generated_) {
+            is_generated_ = true;
+            glGenVertexArrays(1, &id_);
+        }
         glBindVertexArray(id_);
     }
 
     void gl_vao::unbind() const {
+
         glBindVertexArray(0);
     }
 

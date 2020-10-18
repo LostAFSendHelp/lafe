@@ -14,6 +14,8 @@ add_library(
     src/derived/rotation.cpp
     src/derived/spinning.hpp
     src/derived/spinning.cpp
+    src/derived/cast_light.hpp
+    src/derived/cast_light.cpp
 )
 
 target_link_libraries(laf-ecs PUBLIC laf-renderer laf-input)

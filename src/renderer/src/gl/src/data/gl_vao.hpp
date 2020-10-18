@@ -31,7 +31,8 @@ namespace laf {
         }
 
     private:
-        GLuint id_;
+        mutable GLuint id_;
+        mutable bool is_generated_;
         std::optional<gl_array_buffer> a_buffer_;
         std::optional<gl_index_buffer> i_buffer_;
     };
