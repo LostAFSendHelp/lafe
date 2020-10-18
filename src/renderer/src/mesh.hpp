@@ -8,11 +8,13 @@ namespace laf {
     class mesh {
     public:
         
-        /// Id of the mesh.
+        /// @brief Whether the mesh SHOULD be rendered: whether the renderer will actually render the mesh or not also depends on whether the mesh has vertex data
+        bool should_render_;
+        /// @brief Id of the mesh.
         const uint32_t id_;
-        /// Currently only means the mesh's color is rendered as-is.
+        /// @brief Currently only means the mesh's color is rendered as-is.
         bool is_light_source_;
-        /// The overlay color on the surface of the mesh.
+        /// @brief The overlay color on the surface of the mesh.
         glm::vec3 overlay_color_;
 
 
@@ -58,13 +60,6 @@ namespace laf {
         virtual bool is_hidden() const = 0;
 
 
-
-        /**
-         * @brief Toggle whether the mesh should be rendered or hidden. Note that the mesh still won't get rendered if it contains no actual vertex data, which is indicated by is_hidden().
-         * 
-         * @param on Mesh marked as should be rendered if set to TRUE
-         */
-        virtual void toggle_render(bool on) = 0;
 
     private:
         static uint32_t count_;

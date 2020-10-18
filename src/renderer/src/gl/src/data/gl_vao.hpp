@@ -6,8 +6,6 @@
 namespace laf {
     class gl_vao {
     public:
-        bool is_hidden_;
-
         gl_vao();
         ~gl_vao();
 
@@ -23,16 +21,9 @@ namespace laf {
         inline GLuint id() const { return id_; }
         inline uint32_t index_count() const { return i_buffer_->index_count(); }
         inline uint32_t vertex_count() const { return a_buffer_->vertex_count(); }
-        inline bool should_render() const {
-            return
-                !is_hidden_ &&
-                a_buffer_.has_value() &&
-                a_buffer_->vertex_count() != 0;
-        }
 
     private:
         mutable GLuint id_;
-        mutable bool is_generated_;
         std::optional<gl_array_buffer> a_buffer_;
         std::optional<gl_index_buffer> i_buffer_;
     };

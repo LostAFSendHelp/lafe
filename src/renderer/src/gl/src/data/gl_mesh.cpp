@@ -5,13 +5,14 @@ namespace laf {
     mesh(),
     vao_() {
         if (vertices.empty()) return;
-        vao_.bind();
+        vao_.emplace();
+        vao_->bind();
 
-        vao_.gen_buffer<gl_array_buffer>();
-        vao_.push(vertices);
+        vao_->gen_buffer<gl_array_buffer>();
+        vao_->push(vertices);
 
-        vao_.update_data();
-        vao_.unbind();
+        vao_->update_data();
+        vao_->unbind();
     }
 
     gl_mesh::~gl_mesh() {

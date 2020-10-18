@@ -21,24 +21,26 @@ namespace laf {
     }
 
     void gl_renderer::render(const std::shared_ptr<camera>& camera, const std::shared_ptr<light_source>& source) {
+        if (meshes_.empty()) return;
 
         for (const auto& _mesh : meshes_) {
-            auto& _program = _mesh->is_light_source_ ? light_source_program_ : basic_program_;
-            
-            const auto& _vao = _mesh->vao();
-            if (!_vao.should_render()) continue;
+            if (_mesh->is_hidden()) continue;
 
+            auto& _program = _mesh->is_light_source_ ? light_source_program_ : basic_program_;
             _program.use();
+  
+            _program.set_uniform("u_projection", camera->projection());
+            _program.set_uniform("u_view", camera->view());
             _program.set_uniform("u_model", _mesh->transform()->model());
+  
             _program.set_uniform("u_light_color", source->color_ * source->ambient_);
             _program.set_uniform("u_light_source_position", source->world_location());
             _program.set_uniform("u_overlay_color", _mesh->overlay_color_);
+
+            const auto& _vao = _mesh->vao();
             _vao.bind();
             glDrawArrays(GL_TRIANGLES, 0, _vao.vertex_count());
             _vao.unbind();
-
-            _program.set_uniform("u_projection", camera->projection());
-            _program.set_uniform("u_view", camera->view());
         }
     }
 

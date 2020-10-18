@@ -27,32 +27,26 @@ namespace laf {
          * 
          * @return const gl_vao& 
          */
-        inline const gl_vao& vao() const { return vao_; }
+        inline const gl_vao& vao() const { 
+            _ASSERT(vao_.has_value());
+            return vao_.value();
+        }
 
 
 
         /**
-         * @brief Whether the mesh will be rendered. Note that this does not equal the last value passed to toggle_render(bool). E.g: when the mesh is toggled to be rendered, but has no actual vertex data, it won't be rendered then.
+         * @brief Whether the mesh will be rendered. Note that this does not equal the last value passed to toggle_render(bool). E.g: when should_render_ is set to TRUE, but has no actual vertex data, it won't be rendered then.
          * 
          * @return TRUE if the mesh will be rendered.
          * @return FALSE otherwise.
          */
         inline bool is_hidden() const override {
-            return vao_.should_render();
+            return !vao_.has_value() || !should_render_;
         }
 
 
-
-        /**
-         * @brief Toggle whether the mesh should be rendered or hidden
-         * 
-         * @param on Mesh marked as should be rendered if set to TRUE
-         */
-        inline void toggle_render(bool on) override {
-            vao_.is_hidden_ = !on;
-        }
 
     private:
-        gl_vao vao_;
+        std::optional<gl_vao> vao_;
     };
 };

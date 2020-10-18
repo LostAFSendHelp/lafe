@@ -6,7 +6,7 @@
 namespace laf {
     class transform final {
     public:
-        /// Id of the transform
+        /// @brief Id of the transform
         const uint32_t id_;
 
         /**

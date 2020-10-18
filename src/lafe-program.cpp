@@ -26,9 +26,12 @@ int main() {
     auto _cube_1 = std::make_shared<laf::entity>();
     auto _cube_2 = std::make_shared<laf::entity>();
     auto _cube_3 = std::make_shared<laf::entity>();
-    auto _center = std::make_shared<laf::entity>();
+    auto _center_1 = std::make_shared<laf::entity>();
+    auto _center_2 = std::make_shared<laf::entity>();
 
-    _center->add_mesh(_renderer->gen_mesh({ }));
+    _center_1->add_mesh(_renderer->gen_mesh({ }));
+    _center_2->add_mesh(_renderer->gen_mesh({ }));
+
     _cube_1->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.5f)));
     _cube_1->mesh()->overlay_color_ = glm::vec3{ .8f, .1f, .1f };
     _cube_1->mesh()->transform()->translate({ .0f, .0f, .0f }, true);
@@ -41,13 +44,14 @@ int main() {
     _cube_3->mesh()->overlay_color_ = glm::vec3{ 1.0f, 1.0f, .7f };
     _cube_3->mesh()->transform()->translate({ .0f, .0f, -1.0f }, true);
 
-    _center->mesh()->transform()->attach_child(_cube_2->mesh()->transform());
-    _cube_2->mesh()->transform()->attach_child(_cube_3->mesh()->transform());
+    _center_1->mesh()->transform()->attach_child(_cube_2->mesh()->transform());
+    _cube_2->mesh()->transform()->attach_child(_center_2->mesh()->transform());
+    _center_2->mesh()->transform()->attach_child(_cube_3->mesh()->transform());
 
     _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::translation{ } });
     _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::rotation{ } });
-    _cube_2->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });
-    _center->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });
+    _center_1->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });
+    _center_2->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });
     _cube_3->attach_component(std::shared_ptr<laf::component>{ new laf::cast_light{ } });
 
 
@@ -57,7 +61,10 @@ int main() {
     _cube_1->awake();
     _cube_2->awake();
     _cube_3->awake();
-    _center->awake();
+    _center_1->awake();
+    _center_2->awake();
+
+    std::cout << (_cube_1->mesh()->is_hidden() || _cube_1->mesh()->is_hidden()) << std::endl;
 
     // main loop
     while(!_window->is_open()) {
@@ -68,7 +75,8 @@ int main() {
 
         // TODO: this is for testing only, remove when done
         {
-            _center->update();
+            _center_1->update();
+            _center_2->update();
             _cube_1->update();
             _cube_2->update();
             _cube_3->update();
