@@ -12,8 +12,7 @@ namespace laf {
     id_(count_++),
     rotation_(1.0f),
     translation_(1.0f),
-    i_translation_(1.0f),
-    i_rotation_(1.0f),
+    i_transformation_(1.0f),
     detached_(false) {
         #ifdef __DEBUG__
             std::cout << "Transform ID " << id_ << " created" << std::endl;
@@ -44,11 +43,6 @@ namespace laf {
     }
 
     void transform::detach() {
-        translation_ *= i_translation_;
-        rotation_ *= i_rotation_;
-        i_translation_ = glm::mat4{ 1.0f };
-        i_rotation_ = glm::mat4{ 1.0f };
-
         detached_ = true;
     }
 
@@ -64,7 +58,7 @@ namespace laf {
                 _indices.push_back(_index++);
                 if (_transform != nullptr) _transform->detached_ = false;
             } else {
-                _transform->inherit(translation_, rotation_);
+                _transform->inherit(model());
             }
         }
 
@@ -75,9 +69,8 @@ namespace laf {
         }
     }
 
-    void transform::inherit(const glm::mat4& translation, const glm::mat4& rotation) {
-        i_translation_ = translation;
-        i_rotation_ = rotation;
+    void transform::inherit(const glm::mat4& transformation) {
+        i_transformation_ = transformation;
         update_children();
     }
 }

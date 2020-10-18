@@ -21,7 +21,7 @@ namespace laf {
             auto _vertical = input_manager::get_input("updown");
 
             glm::vec3 _translation{ .005f * _horizontal, .0f, -.005f * _vertical };
-            _mesh->transform_->translate(_translation, true);
+            _mesh->transform()->translate(_translation, true);
         }
 
     }

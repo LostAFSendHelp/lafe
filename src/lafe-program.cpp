@@ -24,15 +24,20 @@ int main() {
 
     auto _cube_1 = std::make_shared<laf::entity>();
     auto _cube_2 = std::make_shared<laf::entity>();
+    auto _cube_3 = std::make_shared<laf::entity>();
 
     _cube_1->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.5f)));
     _cube_1->mesh()->overlay_color_ = glm::vec3{ .8f, .1f, .1f };
-    _cube_1->mesh()->transform_->translate({ .0f, .0f, .0f }, true);
+    _cube_1->mesh()->transform()->translate({ .0f, .0f, .0f }, true);
     _cube_2->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.3f)));
     _cube_2->mesh()->overlay_color_ = glm::vec3{ .1f, .8f, .1f };
-    _cube_2->mesh()->transform_->translate({ 2.0f, .2f, .0f }, true);
+    _cube_2->mesh()->transform()->translate({ 2.0f, .0f, .0f }, true);
+    _cube_3->add_mesh(_renderer->gen_mesh(laf::geometry::gen_sample_cube(.16f)));
+    _cube_3->mesh()->overlay_color_ = glm::vec3{ .1f, .1f, .8f };
+    _cube_3->mesh()->transform()->translate({ .0f, .0f, -1.0f }, true);
 
-    _cube_1->mesh()->transform_->attach_child(_cube_2->mesh()->transform_);
+    _cube_1->mesh()->transform()->attach_child(_cube_2->mesh()->transform());
+    _cube_2->mesh()->transform()->attach_child(_cube_3->mesh()->transform());
     _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::translation{ } });
     _cube_1->attach_component(std::shared_ptr<laf::component>{ new laf::rotation{ } });
     _cube_2->attach_component(std::shared_ptr<laf::component>{ new laf::spinning{ } });

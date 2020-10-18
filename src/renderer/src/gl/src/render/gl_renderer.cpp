@@ -31,7 +31,7 @@ namespace laf {
             if (!_vao.should_render()) continue;
 
             _program.use();
-            _program.set_uniform("u_model", _mesh->transform_->model());
+            _program.set_uniform("u_model", _mesh->transform()->model());
             _program.set_uniform("u_light_color", source->color_ * source->ambient_);
             _program.set_uniform("u_light_source_position", source->location_);
             _program.set_uniform("u_overlay_color", _mesh->overlay_color_);

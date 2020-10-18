@@ -12,8 +12,6 @@ namespace laf {
         const uint32_t id_;
         /// Currently only means the mesh's color is rendered as-is.
         bool is_light_source_;
-        /// The transform associated with the mesh.
-        std::shared_ptr<transform> transform_;
         /// The overlay color on the surface of the mesh.
         glm::vec3 overlay_color_;
 
@@ -43,6 +41,15 @@ namespace laf {
 
 
         /**
+         * @brief Returns a pointer to the current transform
+         * 
+         * @return std::shared_ptr<transform> 
+         */
+        inline std::shared_ptr<transform> transform() const { return transform_; }
+
+
+
+        /**
          * @brief Whether the mesh will be rendered. Note that this does not equal the last value passed to toggle_render(bool). E.g: when the mesh is toggled to be rendered, but has no actual vertex data, it won't be rendered then.
          * 
          * @return TRUE if the mesh will be rendered.
@@ -61,5 +68,6 @@ namespace laf {
 
     private:
         static uint32_t count_;
+        std::shared_ptr<laf::transform> transform_;
     };
 };

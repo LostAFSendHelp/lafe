@@ -17,7 +17,7 @@ namespace laf {
     void rotation::update() {
         if (auto _mesh = this->mesh()) {
             auto _rotation = input_manager::get_input("rotate");
-            _mesh->transform_->rotate(.005f * _rotation, { .0f, 1.0f, .0f }, false, true);
+            _mesh->transform()->rotate(.005f * _rotation, { .0f, 1.0f, .0f }, false, true);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace laf {
          * 
          * @return glm::mat4 
          */
-        inline glm::mat4 model() const { return i_translation_ * i_rotation_ * transformation(); }
+        inline glm::mat4 model() const { return i_transformation_ * transformation(); }
 
 
 
@@ -104,8 +104,7 @@ namespace laf {
         bool detached_;
         glm::mat4 translation_;
         glm::mat4 rotation_;
-        glm::mat4 i_translation_;
-        glm::mat4 i_rotation_;
+        glm::mat4 i_transformation_;
         std::vector<std::weak_ptr<transform>> children_;
 
 
@@ -116,7 +115,7 @@ namespace laf {
          * @param translation The translation to inherit.
          * @param rotation The rotation to inherit
          */
-        void inherit(const glm::mat4& translation, const glm::mat4& rotation);
+        void inherit(const glm::mat4& transformation);
 
 
 

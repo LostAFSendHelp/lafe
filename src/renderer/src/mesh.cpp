@@ -7,7 +7,7 @@ namespace laf {
     mesh::mesh():
     id_(count_++),
     is_light_source_(false),
-    transform_(new transform{ }),
+    transform_(new laf::transform{ }),
     overlay_color_(1.0f) {
         
     }
