@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../mesh.hpp"
+#include "../../mesh.hpp"
 #include "gl_vao.hpp"
 
 namespace laf {

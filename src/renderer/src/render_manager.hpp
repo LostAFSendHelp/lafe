@@ -1,5 +1,5 @@
 #pragma once
-#include "gl/src/render/gl_renderer.hpp"
+#include "gl/render/gl_renderer.hpp"
 #include "light_source.hpp"
 #include "camera.hpp"
 

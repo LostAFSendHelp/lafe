@@ -3,7 +3,7 @@
 #include <vector>
 #include "gl_program.hpp"
 #include "../data/gl_mesh.hpp"
-#include "../../../renderer.hpp"
+#include "../../renderer.hpp"
 
 namespace laf {
     class gl_renderer : public renderer {
