@@ -42,4 +42,4 @@ add_executable(lafe-program src/lafe-program.cpp)
 config_macros(lafe-program)
 
 # Linkage
-target_link_libraries(lafe-program PRIVATE laf-geometry laf-input laf-window laf-renderer laf-ecs)
+target_link_libraries(lafe-program PRIVATE laf-geometry laf-input laf-window laf-renderer laf-ecs glm)

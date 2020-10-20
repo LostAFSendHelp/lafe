@@ -33,7 +33,7 @@ add_library(
     src/gl/render/gl_shader.cpp
 )
 
-target_link_libraries(laf-renderer PUBLIC laf-geometry GLEW::GLEW)
+target_link_libraries(laf-renderer PRIVATE laf-geometry GLEW::GLEW)
 target_include_directories(laf-renderer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_custom_command(TARGET laf-renderer POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory

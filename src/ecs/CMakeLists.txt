@@ -18,6 +18,6 @@ add_library(
     src/derived/cast_light.cpp
 )
 
-target_link_libraries(laf-ecs PUBLIC laf-renderer laf-input)
+target_link_libraries(laf-ecs PRIVATE laf-renderer laf-input laf-geometry laf-window glm)
 target_include_directories(laf-ecs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 config_macros(laf-ecs)
