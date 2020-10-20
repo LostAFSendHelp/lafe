@@ -28,12 +28,14 @@ namespace laf {
 
             auto& _program = _mesh->is_light_source_ ? light_source_program_ : basic_program_;
             _program.use();
-  
+
+            _program.set_uniform("u_pov", camera->position());
             _program.set_uniform("u_projection", camera->projection());
             _program.set_uniform("u_view", camera->view());
             _program.set_uniform("u_model", _mesh->transform()->model());
   
-            _program.set_uniform("u_light_color", source->color_ * source->ambient_);
+            _program.set_uniform("u_light_color", source->color_);
+            _program.set_uniform("u_ambient", source->ambient_);
             _program.set_uniform("u_light_source_position", source->world_location());
             _program.set_uniform("u_overlay_color", _mesh->overlay_color_);
 
