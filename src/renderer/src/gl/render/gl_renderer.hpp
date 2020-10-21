@@ -17,7 +17,8 @@ namespace laf {
     
     private:
         // currently using hard coded programs
-        gl_program basic_program_;
+        gl_program phong_program_;
+        gl_program gouraud_program_;
         gl_program light_source_program_;
         std::vector<std::shared_ptr<gl_mesh>> meshes_;
     };

@@ -4,14 +4,18 @@
 namespace laf {
     gl_renderer::gl_renderer():
     renderer(),
-    basic_program_(),
+    phong_program_(),
     light_source_program_() {
         // TODO: change logic
-        basic_program_.gen_shader(GL_VERTEX_SHADER, "assets/shaders/gl/vertex_shader.glsl");
-        basic_program_.gen_shader(GL_FRAGMENT_SHADER, "assets/shaders/gl/fragment_shader_basic.glsl");
-        basic_program_.link();
+        phong_program_.gen_shader(GL_VERTEX_SHADER, "assets/shaders/gl/vertex_shader_phong.glsl");
+        phong_program_.gen_shader(GL_FRAGMENT_SHADER, "assets/shaders/gl/fragment_shader_phong.glsl");
+        phong_program_.link();
 
-        light_source_program_.gen_shader(GL_VERTEX_SHADER, "assets/shaders/gl/vertex_shader.glsl");
+        gouraud_program_.gen_shader(GL_VERTEX_SHADER, "assets/shaders/gl/vertex_shader_gouraud.glsl");
+        gouraud_program_.gen_shader(GL_FRAGMENT_SHADER, "assets/shaders/gl/fragment_shader_gouraud.glsl");
+        gouraud_program_.link();
+
+        light_source_program_.gen_shader(GL_VERTEX_SHADER, "assets/shaders/gl/vertex_shader_phong.glsl");
         light_source_program_.gen_shader(GL_FRAGMENT_SHADER, "assets/shaders/gl/fragment_shader_light_source.glsl");
         light_source_program_.link();
     }
@@ -26,10 +30,9 @@ namespace laf {
         for (const auto& _mesh : meshes_) {
             if (_mesh->is_hidden()) continue;
 
-            auto& _program = _mesh->is_light_source_ ? light_source_program_ : basic_program_;
+            auto& _program = _mesh->is_light_source_ ? light_source_program_ : phong_program_;
             _program.use();
 
-            _program.set_uniform("u_pov", camera->position());
             _program.set_uniform("u_projection", camera->projection());
             _program.set_uniform("u_view", camera->view());
             _program.set_uniform("u_model", _mesh->transform()->model());
