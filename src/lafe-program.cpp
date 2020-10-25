@@ -102,10 +102,14 @@ int main() {
                 _camera->set_position(_position);
             }
 
-        }
+            if (laf::input_manager::get_key_down("horizontal")) {
+                std::cout << "HHH" << std::endl;
+            }
 
+        }
         
         _renderer->render();
+        laf::input_manager::reset();
     }
 
     _renderer->terminate();

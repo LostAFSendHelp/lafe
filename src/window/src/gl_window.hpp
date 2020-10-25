@@ -14,6 +14,7 @@ namespace laf {
         void wait_for_exit() override;
         void terminate() override;
         void toggle_cursor(bool on) override;
+        void key_down_callback(const std::function<void(int)>& callback) override;
 
         int get_key(int key) const override;
         std::pair<double, double> cursor_location() const override;
@@ -23,5 +24,6 @@ namespace laf {
         static const int WIDTH;
         static const int HEIGHT;
         static const char* TITLE;
+        std::function<void(int)> key_down_;
     };
 };

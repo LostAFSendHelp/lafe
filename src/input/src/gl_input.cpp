@@ -3,8 +3,8 @@
 #include "gl_input.hpp"
 
 namespace laf {
-    gl_input::gl_input(): // TODO: rework initial cursor position
-    input(),
+    gl_input::gl_input(const std::shared_ptr<window>& window):
+    input(window),
     x_(800.0f / 2.0f),
     y_(600.0f / 2.0f),
     last_x_(x_),
@@ -17,20 +17,29 @@ namespace laf {
         items_.insert({ "updown", { GLFW_KEY_UP, GLFW_KEY_DOWN, 0 } });
 
         items_.insert({ "rotate", { GLFW_KEY_X, GLFW_KEY_Z, 0 } });
+
+        window_->key_down_callback([&](int key) {
+            for (auto& item : items_) {
+                auto& input = item.second;
+                if (input.negative_ == key || input.positive_ == key) {
+                    input.down_ = true;
+                }
+            }
+        });
     }
 
     gl_input::~gl_input() {
 
     }
 
-    void gl_input::poll(const std::shared_ptr<window>& window) {
+    void gl_input::poll() {
         for (auto& item : items_) {
-            auto pos = window->get_key(item.second.positive_);
-            auto neg = window->get_key(item.second.negative_);
+            auto pos = window_->get_key(item.second.positive_);
+            auto neg = window_->get_key(item.second.negative_);
             item.second.accept(pos, neg);
         }
 
-        auto&& location = window->cursor_location();
+        auto&& location = window_->cursor_location();
         last_x_ = x_;
         last_y_ = y_;
         x_ = location.first;
@@ -38,12 +47,15 @@ namespace laf {
     }
 
     void gl_input::reset() {
-        x_ = last_x_ = 800.0f / 2.0f;
-        y_ = last_y_ = 600.0f / 2.0f;
+        // x_ = last_x_ = 800.0f / 2.0f;
+        // y_ = last_y_ = 600.0f / 2.0f;
+        for (auto& item : items_) {
+            item.second.down_ = false;
+        }
     }
 
-    void gl_input::toggle_cursor(const std::shared_ptr<window>& window, bool on) {
-        window->toggle_cursor(on);
+    void gl_input::toggle_cursor(bool on) {
+        window_->toggle_cursor(on);
     }
 
     int gl_input::get_input(const std::string& name) const {
@@ -51,6 +63,13 @@ namespace laf {
         if (item == items_.end()) return 0;
 
         return item->second.direction_;
+    }
+
+    bool gl_input::get_key_down(const std::string& name) const {
+        auto item = items_.find(name);
+        if (item == items_.end()) return false;
+
+        return item->second.down_;
     }
 
     std::pair<double, double> gl_input::cursor_location() const {

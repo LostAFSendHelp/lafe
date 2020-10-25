@@ -16,11 +16,11 @@ namespace laf {
         static void reset();
         static void toggle_cursor(bool on);
         static int get_input(const std::string& name);
+        static bool get_key_down(const std::string& name);
         static std::pair<double, double> cursor_location();
         static std::pair<double, double> cursor_axes(bool normalized);
 
     private:
-        static std::shared_ptr<window> window_;
         static std::unique_ptr<input> input_;
     };
 

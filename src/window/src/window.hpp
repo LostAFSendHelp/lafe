@@ -1,5 +1,6 @@
 #pragma once
 #include <utility>
+#include <functional>
 
 namespace laf {
     class window {
@@ -12,6 +13,7 @@ namespace laf {
         virtual void wait_for_exit() = 0;
         virtual void terminate() = 0;
         virtual void toggle_cursor(bool on) = 0;
+        virtual void key_down_callback(const std::function<void(int)>& callback) = 0;
         
         virtual int get_key(int key) const = 0;
         virtual std::pair<double, double> cursor_location() const = 0;

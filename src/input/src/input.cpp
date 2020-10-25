@@ -2,7 +2,8 @@
 #include "input.hpp"
 
 namespace laf {
-    input::input() {
+    input::input(const std::shared_ptr<window>& window):
+    window_(window) {
 
     }
 

@@ -5,6 +5,7 @@ namespace laf {
         int positive_;
         int negative_;
         int direction_;
+        bool down_;
 
         void test_input() const;
         void accept(int pos, int neg);

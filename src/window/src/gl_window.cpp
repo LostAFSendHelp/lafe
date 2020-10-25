@@ -8,7 +8,8 @@ namespace laf {
     const char* gl_window::TITLE = "GL";
     
     gl_window::gl_window():
-    window() {
+    window(),
+    key_down_([](int key) { }) {
 
     }
 
@@ -30,6 +31,12 @@ namespace laf {
         glfwWindowHint(GLFW_VERSION_MINOR, 3);
         window_ = glfwCreateWindow(WIDTH, HEIGHT, TITLE, nullptr, nullptr);
         glfwMakeContextCurrent(window_);
+        glfwSetWindowUserPointer(window_, this);
+        glfwSetKeyCallback(window_, [](GLFWwindow* w, int key, int scancode, int action, int mods) {
+            if (auto _ptr = static_cast<gl_window*>(glfwGetWindowUserPointer(w))) {
+                if (action == GLFW_PRESS) _ptr->key_down_(key);
+            }
+        });
         
         glewInit();
         std::cout << "OPENGL version: " << glGetString(GL_VERSION) << std::endl;
@@ -62,6 +69,10 @@ namespace laf {
     void gl_window::toggle_cursor(bool on) {
         auto mode = on ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED;
         glfwSetInputMode(window_, GLFW_CURSOR, mode);
+    }
+
+    void gl_window::key_down_callback(const std::function<void(int)>& callback) {
+        key_down_ = callback;
     }
 
     int gl_window::get_key(int key) const {
