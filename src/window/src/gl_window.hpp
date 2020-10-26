@@ -17,6 +17,7 @@ namespace laf {
         void key_down_callback(const std::function<void(int)>& callback) override;
 
         int get_key(int key) const override;
+        bool is_cursor_enabled() const override;
         std::pair<double, double> cursor_location() const override;
     
     private:
@@ -25,5 +26,6 @@ namespace laf {
         static const int HEIGHT;
         static const char* TITLE;
         std::function<void(int)> key_down_;
+        bool is_cursor_enabled_;
     };
 };

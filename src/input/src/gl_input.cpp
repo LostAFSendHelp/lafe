@@ -17,6 +17,7 @@ namespace laf {
         items_.insert({ "updown", { GLFW_KEY_UP, GLFW_KEY_DOWN, 0 } });
 
         items_.insert({ "rotate", { GLFW_KEY_X, GLFW_KEY_Z, 0 } });
+        items_.insert({ "cursor", { GLFW_KEY_Q, GLFW_KEY_Q, 0 } });
 
         window_->key_down_callback([&](int key) {
             for (auto& item : items_) {
@@ -39,6 +40,7 @@ namespace laf {
             item.second.accept(pos, neg);
         }
 
+        if (window_->is_cursor_enabled()) return;
         auto&& location = window_->cursor_location();
         last_x_ = x_;
         last_y_ = y_;
@@ -56,6 +58,12 @@ namespace laf {
 
     void gl_input::toggle_cursor(bool on) {
         window_->toggle_cursor(on);
+
+        if (!on) {
+            auto _location = window_->cursor_location();
+            last_x_ = x_ = _location.first;
+            last_y_ = y_ = _location.second;
+        }
     }
 
     int gl_input::get_input(const std::string& name) const {

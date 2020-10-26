@@ -9,7 +9,8 @@ namespace laf {
     
     gl_window::gl_window():
     window(),
-    key_down_([](int key) { }) {
+    key_down_([](int key) { }),
+    is_cursor_enabled_(false) {
 
     }
 
@@ -69,6 +70,8 @@ namespace laf {
     void gl_window::toggle_cursor(bool on) {
         auto mode = on ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED;
         glfwSetInputMode(window_, GLFW_CURSOR, mode);
+        glfwSetCursorPos(window_, gl_window::WIDTH / 2.0f, gl_window::HEIGHT / 2.0f);
+        is_cursor_enabled_ = on;
     }
 
     void gl_window::key_down_callback(const std::function<void(int)>& callback) {
@@ -77,6 +80,10 @@ namespace laf {
 
     int gl_window::get_key(int key) const {
         return glfwGetKey(window_, key);
+    }
+
+    bool gl_window::is_cursor_enabled() const {
+        return is_cursor_enabled_;
     }
 
     std::pair<double, double> gl_window::cursor_location() const {

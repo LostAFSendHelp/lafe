@@ -16,6 +16,7 @@ namespace laf {
         virtual void key_down_callback(const std::function<void(int)>& callback) = 0;
         
         virtual int get_key(int key) const = 0;
+        virtual bool is_cursor_enabled() const = 0;
         virtual std::pair<double, double> cursor_location() const = 0;
     protected:
         window();
