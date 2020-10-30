@@ -1,7 +1,7 @@
 #include <glm/gtx/rotate_vector.hpp>
+#include <gl_window.hpp>
 #include <input_manager.hpp>
 #include <render_manager.hpp>
-#include <gl_window.hpp>
 #include <entity.hpp>
 #include <derived/translation.hpp>
 #include <derived/rotation.hpp>

@@ -1,6 +1,6 @@
 #include <iostream>
-#include <GLFW/glfw3.h>
 #include "gl_input.hpp"
+#include <GLFW/glfw3.h>
 
 namespace laf {
     gl_input::gl_input(const std::shared_ptr<window>& window):

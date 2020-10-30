@@ -1,6 +1,6 @@
 #pragma once
-#include <GLFW/glfw3.h>
 #include "window.hpp"
+#include <GLFW/glfw3.h>
 
 namespace laf {
     class gl_window : public window {
@@ -10,22 +10,8 @@ namespace laf {
 
         void init() override;
         void update() override;
-        bool is_open() const override;
-        void wait_for_exit() override;
-        void terminate() override;
-        void toggle_cursor(bool on) override;
-        void key_down_callback(const std::function<void(int)>& callback) override;
 
-        int get_key(int key) const override;
-        bool is_cursor_enabled() const override;
-        std::pair<double, double> cursor_location() const override;
-    
     private:
-        GLFWwindow* window_;
-        static const int WIDTH;
-        static const int HEIGHT;
-        static const char* TITLE;
-        std::function<void(int)> key_down_;
-        bool is_cursor_enabled_;
+
     };
 };
